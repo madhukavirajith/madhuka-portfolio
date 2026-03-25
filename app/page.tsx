@@ -26,18 +26,18 @@ import {
 
 const projects = [
   {
-    title: "School Management System",
+    title: "p1",
     category: "Real World",
-    description: "System used by a tuition center to manage students and payments.",
-    stack: ["React", "Node.js", "MongoDB"],
+    description: "p1",
+    stack: ["x", "y", "z"],
     github: "#",
     live: "#",
   },
   {
-    title: "AI Study Assistant",
+    title: "p2",
     category: "Academic",
-    description: "Final year AI project that generates summaries and quizzes.",
-    stack: ["Python", "Flask", "React"],
+    description: "p2",
+    stack: ["x", "y"],
     github: "#",
     live: "#",
   },
@@ -45,17 +45,17 @@ const projects = [
     title: "Portfolio Website",
     category: "Personal",
     description: "Modern developer portfolio built with Next.js.",
-    stack: ["Next.js", "Tailwind"],
-    github: "#",
-    live: "#",
+    stack: ["Next.js","TypeScript" , "Tailwind"],
+    github: "https://github.com/madhukavirajith/madhuka-portfolio.git",
+    live: "https://www.madhukavirajith.com/",
   },
 ];
 
 const skills = {
   frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
-  backend: ["Node.js", "Express", "Spring Boot", "REST APIs", "Firebase"],
-  database: ["MongoDB", "PostgreSQL", "MySQL", "Prisma"],
-  tools: ["Git", "GitHub", "Docker", "Figma", "Vercel"],
+  backend: ["Node.js", "Express", "Java", "REST APIs"],
+  database: ["MongoDB","MySQL"],
+  tools: ["Git", "GitHub", "Figma", "Vercel"],
 };
 
 const experiences = [

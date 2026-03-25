@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Madhuka Virajith — Developer Portfolio
+
+A modern, responsive personal portfolio website built with Next.js, Tailwind CSS, and Framer Motion.
+
+🌐 **Live Site:** [madhukavirajith.com](https://www.madhukavirajith.com)
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | [Next.js](https://nextjs.org/) (App Router) |
+| Language | TypeScript |
+| Styling | [Tailwind CSS](https://tailwindcss.com/) |
+| Animations | [Framer Motion](https://www.framer.com/motion/) |
+| Icons | [Lucide React](https://lucide.dev/) |
+| Deployment | [Vercel](https://vercel.com/) |
+
+---
+
+## Features
+
+- **Dark / Light mode** toggle with smooth theme transitions
+- **Animated sections** using Framer Motion scroll and entrance effects
+- **Project filtering** by category (Real World, Academic, Personal)
+- **Fully responsive** layout for mobile, tablet, and desktop
+- **Downloadable CV** from the hero section
+- **Smooth scroll navigation** with sticky header
+
+---
+
+## Sections
+
+- **Home** — Hero with introduction, role chips, CTA buttons, and social links
+- **About** — Personal summary with three focus cards
+- **Skills** — Categorised tech stack (Frontend, Backend, Database, Tools)
+- **Projects** — Filterable project cards with GitHub and live demo links
+- **Experience** — Education and experience timeline
+- **Contact** — Email, GitHub, and LinkedIn contact cards
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js `18+`
+- npm or yarn
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/madhukavirajith/madhuka-portfolio.git
+
+# Navigate into the project
+cd madhuka-portfolio
+
+# Install dependencies
+npm install
+```
+
+### Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm start
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+├── app/
+│   ├── layout.tsx        # Root layout with metadata
+│   └── page.tsx          # Main portfolio page
+├── public/
+│   └── Madhuka-Virajith-CV.pdf
+├── components/           # (if split into components)
+├── tailwind.config.ts
+└── next.config.ts
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Deployment
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+This project is deployed on **Vercel**. Any push to the `main` branch triggers an automatic deployment.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new)
+
+---
+
+## Contact
+
+- **Email:** madvira99@gmail.com
+- **GitHub:** [github.com/madhukavirajith](https://github.com/madhukavirajith)
+- **LinkedIn:** [linkedin.com/in/madhuka-virajith-599ba42a4](https://www.linkedin.com/in/madhuka-virajith-599ba42a4/)
+
+---
+
+© 2025 Madhuka Virajith. All rights reserved.
