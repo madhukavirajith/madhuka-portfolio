@@ -34,27 +34,31 @@ const projects = [
     live: "#",
   },
   {
-    title: "p2",
+    title: "Forgotten Recipes",
     category: "Academic",
-    description: "p2",
-    stack: ["x", "y"],
-    github: "#",
-    live: "#",
-  },
+    description: "A MERN-based interactive platform to preserve, promote, and personalize Sri Lanka's ancient culinary heritage - with modern health tools and cultural storytelling.",
+    stack: ["Mongodb", "Express.js", "React.js", "Node.js"],
+    github: "https://github.com/madhukavirajith/Forgotten-Recipes.git",
+    live: "https://forgotten-recipes.vercel.app/",
+    media: "/projects/forgotten-recipes.mp4", // Use MP4 for better performance
+    mediaType: "video",
+    },
   {
     title: "Portfolio Website",
     category: "Personal",
-    description: "Modern developer portfolio built with Next.js.",
-    stack: ["Next.js","TypeScript" , "Tailwind"],
+    description: "Modern developer portfolio built with Next.js with smooth animations and responsive design.",
+    stack: ["Next.js", "TypeScript", "Tailwind"],
     github: "https://github.com/madhukavirajith/madhuka-portfolio.git",
     live: "https://www.madhukavirajith.com/",
+    media: "/projects/portfolio-website.mp4", // Add your screenshot/video here
+    mediaType: "video",
   },
 ];
 
 const skills = {
   frontend: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"],
   backend: ["Node.js", "Express", "Java", "REST APIs"],
-  database: ["MongoDB","MySQL"],
+  database: ["MongoDB", "MySQL"],
   tools: ["Git", "GitHub", "Figma", "Vercel"],
 };
 
@@ -93,6 +97,84 @@ function Chip({ children }: { children: React.ReactNode }) {
     <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200 backdrop-blur-sm">
       {children}
     </span>
+  );
+}
+
+// Project Media Component - handles both images, GIFs, and videos
+function ProjectMedia({ project, theme }: { project: any; theme: any }) {
+  const [mediaError, setMediaError] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  if (!project.media || mediaError) {
+    // Fallback gradient if media fails to load
+    return (
+      <div className="h-56 bg-gradient-to-br from-cyan-500/20 via-blue-500/10 to-fuchsia-500/20 flex items-center justify-center">
+        <div className="text-center">
+          <Code2 className="h-10 w-10 text-cyan-400/50 mx-auto mb-2" />
+          <p className="text-sm text-slate-400">{project.title}</p>
+        </div>
+      </div>
+    );
+  }
+
+  // For video files (MP4, WebM)
+  if (project.mediaType === "video" || project.media.endsWith('.mp4') || project.media.endsWith('.webm')) {
+    return (
+      <div 
+        className="relative h-56 overflow-hidden bg-black/40"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          poster={project.poster}
+          onError={() => setMediaError(true)}
+        >
+          <source src={project.media} type={`video/${project.media.endsWith('.webm') ? 'webm' : 'mp4'}`} />
+        </video>
+        
+        {/* Optional: Play indicator on hover */}
+        {isHovered && (
+          <div className="absolute inset-0 bg-black/20 flex items-center justify-center transition-opacity duration-300">
+            <div className="rounded-full bg-black/60 p-3 backdrop-blur-sm">
+              <ExternalLink className="h-6 w-6 text-white" />
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  // For GIF files
+  if (project.media.endsWith('.gif')) {
+    return (
+      <div className="relative h-56 overflow-hidden bg-black/40">
+        <img
+          src={project.media}
+          alt={project.title}
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          loading="lazy"
+          onError={() => setMediaError(true)}
+        />
+      </div>
+    );
+  }
+
+  // For static images (PNG, JPG, JPEG, WebP)
+  return (
+    <div className="relative h-56 overflow-hidden bg-black/40">
+      <img
+        src={project.media}
+        alt={project.title}
+        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+        onError={() => setMediaError(true)}
+      />
+    </div>
   );
 }
 
@@ -412,9 +494,11 @@ export default function MadhukaPortfolio() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.05 }}
-                className={`group rounded-[30px] border ${theme.border} ${theme.card} overflow-hidden`}
+                className={`group rounded-[30px] border ${theme.border} ${theme.card} overflow-hidden hover:scale-[1.02] transition-transform duration-300`}
               >
-                <div className="h-56 bg-gradient-to-br from-cyan-500/20 via-blue-500/10 to-fuchsia-500/20" />
+                {/* Project Media - replaces the gradient background */}
+                <ProjectMedia project={project} theme={theme} />
+                
                 <div className="p-6">
                   <div className="mb-4 flex items-center justify-between gap-3">
                     <div>
@@ -436,7 +520,7 @@ export default function MadhukaPortfolio() {
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
-                      className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} px-4 py-2 ${theme.text}`}
+                      className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} px-4 py-2 ${theme.text} hover:bg-white/10 transition`}
                     >
                       <Github className="h-4 w-4" />
                       GitHub
@@ -445,7 +529,7 @@ export default function MadhukaPortfolio() {
                       href={project.live}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400 px-4 py-2 font-medium text-slate-950"
+                      className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400 px-4 py-2 font-medium text-slate-950 hover:bg-cyan-300 transition"
                     >
                       <ExternalLink className="h-4 w-4" />
                       Live Demo
@@ -493,8 +577,8 @@ export default function MadhukaPortfolio() {
           <div className={`rounded-[36px] border ${theme.border} ${theme.card} p-8 sm:p-10`}>
             <SectionTitle
               eyebrow="Contact"
-              title="Let’s build something meaningful"
-              description="I’m open to internships, graduate roles, freelance work, and exciting software collaborations. Feel free to reach out."
+              title="Let's build something meaningful"
+              description="I'm open to internships, graduate roles, freelance work, and exciting software collaborations. Feel free to reach out."
             />
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
