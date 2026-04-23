@@ -85,7 +85,7 @@ npm start
 │   ├── layout.tsx        # Root layout with metadata
 │   └── page.tsx          # Main portfolio page
 ├── public/
-│   └── Madhuka-Virajith-CV.pdf
+│   └── Madhuka_Virajith_CV.pdf
 ├── components/           # (if split into components)
 ├── tailwind.config.ts
 └── next.config.ts

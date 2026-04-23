@@ -502,7 +502,7 @@ export default function MadhukaPortfolio() {
                 <a href="#contact" className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} ${theme.panel} px-6 py-3 font-semibold ${theme.text} transition hover:scale-[1.02]`}>
                   Contact Me
                 </a>
-                <a href="/Madhuka-Virajith-CV.pdf" className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} ${theme.panel} px-6 py-3 font-semibold ${theme.text}`}>
+                <a href="/Madhuka_Virajith_CV.pdf" className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} ${theme.panel} px-6 py-3 font-semibold ${theme.text}`}>
                   <Download className="h-4 w-4" /> Download CV
                 </a>
               </div>
