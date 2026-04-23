@@ -103,7 +103,7 @@ This project is deployed on **Vercel**. Any push to the `main` branch triggers a
 
 ## Contact
 
-- **Email:** madvira99@gmail.com
+- **Email:** virajith404@gmail.com
 - **GitHub:** [github.com/madhukavirajith](https://github.com/madhukavirajith)
 - **LinkedIn:** [linkedin.com/in/madhuka-virajith-599ba42a4](https://www.linkedin.com/in/madhuka-virajith-599ba42a4/)
 

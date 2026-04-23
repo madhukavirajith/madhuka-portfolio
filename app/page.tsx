@@ -510,7 +510,7 @@ export default function MadhukaPortfolio() {
                 {[
                   { href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" /> },
                   { href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5 w-5" /> },
-                  { href: "mailto:madvira99@gmail.com", icon: <Mail className="h-5 w-5" /> },
+                  { href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" /> },
                 ].map((s, i) => (
                   <a key={i} href={s.href} target={s.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`rounded-2xl border ${theme.border} ${theme.panel} p-3 ${theme.text}`}>
                     {s.icon}
@@ -704,7 +704,7 @@ export default function MadhukaPortfolio() {
             />
             <div className="mt-10 grid gap-6 md:grid-cols-3">
               {[
-                { label: "Email", value: "madvira99@gmail.com", href: "mailto:madvira99@gmail.com", icon: <Mail className="h-5 w-5" /> },
+                { label: "Email", value: "virajith404@gmail.com", href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" /> },
                 { label: "GitHub", value: "github.com/madhukavirajith", href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" /> },
                 { label: "LinkedIn", value: "linkedin.com/in/madhuka-virajith-599ba42a4/", href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5 w-5" /> },
               ].map((item) => (
