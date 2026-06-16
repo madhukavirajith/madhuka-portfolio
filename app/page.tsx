@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import React, { useMemo, useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Github,
   Linkedin,
@@ -22,12 +22,15 @@ import {
   Database,
   Server,
   Layers3,
+  Terminal,
+  Send,
+  MessageSquare,
+  ChevronDown,
+  CheckCircle2,
 } from "lucide-react";
 
 // ─── Tech Icon SVG Paths ──────────────────────────────────────────────────────
-// Each entry: { path: SVG path d="...", color: brand hex, viewBox (optional) }
 const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string }> = {
-  // Frontend
   html: {
     color: "#E34F26",
     viewBox: "0 0 24 24",
@@ -58,14 +61,13 @@ const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string
     viewBox: "0 0 24 24",
     path: "M11.5 2l-9.5 2.5v15l9.5 2.5V2zm1 .18V21.82L22 19.5V4.5L12.5 2.18zM3 6.5h2v1H3v-1zm0 2.5h2v1H3V9zm0 2.5h2v1H3V11.5zm0 2.5h2v1H3V14zm10-7.5h6v1h-6V6.5zm0 2.5h6v1h-6V9zm0 2.5h6v1h-6V11.5zm0 2.5h6v1h-6V14z",
   },
-  // Backend
   nodejs: {
     color: "#339933",
     viewBox: "0 0 24 24",
     path: "M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.198.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.19-.137-.242L11.13 1.604a.271.271 0 0 0-.271 0L2.073 6.68c-.085.05-.139.146-.139.241v10.15c0 .097.054.189.139.235l2.409 1.391c1.307.654 2.108-.116 2.108-.891V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.019c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L1.226 18.439a1.847 1.847 0 0 1-.92-1.597V6.921c0-.659.353-1.272.92-1.599L9.019.247a1.886 1.886 0 0 1 1.866 0l7.793 4.075c.567.328.92.94.92 1.599v10.15c0 .659-.353 1.271-.92 1.597l-7.793 4.085c-.28.163-.6.247-.887.247zm2.42-6.993c-3.855 0-4.663-1.77-4.663-3.255 0-.142.114-.253.256-.253h1.138c.127 0 .233.092.252.217.172 1.161.684 1.748 3.017 1.748 1.857 0 2.646-.420 2.646-1.405 0-.568-.226-.991-3.119-1.274-2.418-.239-3.912-.773-3.912-2.708 0-1.783 1.503-2.846 4.024-2.846 2.829 0 4.231.982 4.408 3.091a.255.255 0 0 1-.065.196.257.257 0 0 1-.189.083H16.09a.256.256 0 0 1-.248-.196c-.276-1.222-.946-1.614-2.776-1.614-2.044 0-2.283.712-2.283 1.247 0 .648.28.836 3.023 1.202 2.717.362 4.008.877 4.008 2.769-.001 1.925-1.605 3.002-4.396 3.002z",
   },
   express: {
-    color: "#ffffff",
+    color: "#808080",
     viewBox: "0 0 24 24",
     path: "M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 011.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 000 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 002.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 01-2.589 3.957 6.272 6.272 0 01-7.306-.933 6.575 6.575 0 01-1.64-3.858c0-.235-.08-.455-.138-.82zm1.158-.228c-.48 0-1.907 0-2.84 0 .18-3.797 3.018-6.702 6.403-5.362 1.48.576 2.338 1.72 2.658 3.241a.66.66 0 01-.158.44H1.16z",
   },
@@ -94,7 +96,6 @@ const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string
     viewBox: "0 0 24 24",
     path: "M8.851 18.56s-.917.534.653.714c1.902.218 2.874.187 4.969-.211 0 0 .552.346 1.321.646-4.699 2.013-10.633-.118-6.943-1.149M8.276 15.933s-1.028.761.542.924c2.032.209 3.636.227 6.413-.308 0 0 .384.389.987.602-5.679 1.661-12.007.13-7.942-1.218M13.116 11.475c1.158 1.333-.304 2.533-.304 2.533s2.939-1.518 1.589-3.418c-1.261-1.772-2.228-2.652 3.007-5.688 0 .001-8.216 2.051-4.292 6.573M19.33 20.504s.679.559-.747.991c-2.712.822-11.288 1.069-13.669.033-.856-.373.75-.89 1.254-.998.527-.114.828-.093.828-.093-.953-.671-6.156 1.317-2.643 1.887 9.58 1.553 17.462-.7 14.977-1.82M9.292 13.21s-4.362 1.036-1.544 1.412c1.189.159 3.561.123 5.77-.062 1.806-.152 3.618-.477 3.618-.477s-.637.272-1.098.587c-4.429 1.165-12.986.623-10.522-.568 2.082-1.006 3.776-.892 3.776-.892M17.116 17.584c4.503-2.34 2.421-4.589.968-4.285-.355.074-.515.138-.515.138s.132-.207.385-.297c2.875-1.011 5.086 2.981-.928 4.562 0-.001.07-.062.09-.118M14.401 0s2.494 2.494-2.365 6.33c-3.896 3.077-.888 4.832-.001 6.836-2.274-2.053-3.943-3.858-2.824-5.539 1.644-2.469 6.197-3.665 5.19-7.627M9.734 23.924c4.322.277 10.959-.153 11.116-2.198 0 0-.302.775-3.572 1.391-3.688.694-8.239.613-10.937.168 0-.001.553.457 3.393.639",
   },
-  // Database
   mongodb: {
     color: "#47A248",
     viewBox: "0 0 24 24",
@@ -110,7 +111,6 @@ const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string
     viewBox: "0 0 24 24",
     path: "M21.678.521C20.467-.29 19.0 .001 17.992.491l-.036.017C15.865 1.65 14.349 3.3 13.26 5.13c-.766 1.305-1.323 2.74-1.645 4.233-.014.064-.088.1-.148.069C8.55 7.6 5.283 8.025 3.25 9.888c-.654.598-1.179 1.316-1.561 2.124-.17.354-.275.752-.31 1.15-.11 1.246.384 2.413 1.29 3.325.082.082.1.204.042.304-1.001 1.68-1.697 3.6-1.862 5.572L.83 22.5c-.025.29-.012.59.04.874.164.88.686 1.517 1.57 1.586.85.063 1.58-.48 2.014-1.18.33-.52.5-1.115.565-1.735.062-.597.057-1.2.054-1.8l-.003-.56c0-.2.24-.3.384-.17.63.566 1.353.97 2.11 1.2.98.297 2.022.285 3.08.068.056-.011.108.033.107.09-.01.52.01 1.057.093 1.59.156 1 .58 2.068 1.475 2.497.297.14.617.213.954.206.358-.008.705-.112 1.025-.276.737-.383 1.157-1.12 1.39-1.9.25-.84.283-1.737.28-2.623l-.004-1.245c.001-.13.097-.237.224-.256C20.23 18.548 23.98 14.48 23.98 9.55c0-3.587-1.006-6.67-2.303-9.03zm-7.21 17.97c-.045-.058-.027-.14.037-.177 1.025-.582 1.88-1.364 2.563-2.285.073-.1.22-.078.262.034.184.49.325 1.005.405 1.538.026.172.044.346.054.52.004.083-.069.148-.148.13a10.555 10.555 0 01-3.173-1.76z",
   },
-  // Tools
   github: {
     color: "#ffffff",
     viewBox: "0 0 24 24",
@@ -206,6 +206,157 @@ const SKILL_ICON_MAP: Record<string, string> = {
   PHPMyAdmin: "phpmyadmin",
 };
 
+// Skill Proficiency Data (out of 100)
+const SKILL_PROFICIENCY: Record<string, number> = {
+  Html: 95, CSS: 90, Css: 90, JavaScript: 92, "React.js": 90, "Tailwind CSS": 95, "Windows Forms": 75,
+  "Node.js": 88, "Express.js": 85, "Java Spring Boot": 82, "C# / .NET 8": 80, PHP: 75,
+  MongoDB: 84, MySQL: 88, SQLite: 80,
+  GitHub: 92, Figma: 78, Vercel: 85, Render: 80, XAMPP: 82, "Visual Studio": 85, "IntelliJ IDEA": 80, Postman: 85, Docker: 72, "VS Code": 95, "Android Studio": 70, PHPMyAdmin: 80
+};
+
+// ─── 3D Particle Globe Component ──────────────────────────────────────────────
+function ParticleGlobe({ darkMode }: { darkMode: boolean }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animationFrameId: number;
+    const width = 300;
+    const height = 180;
+    canvas.width = width;
+    canvas.height = height;
+
+    const radius = 70;
+    const particleCount = 70;
+    const focalLength = 155;
+
+    interface Particle {
+      x: number;
+      y: number;
+      z: number;
+      px: number;
+      py: number;
+    }
+
+    const particles: Particle[] = [];
+    for (let i = 0; i < particleCount; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
+      particles.push({
+        x: radius * Math.sin(phi) * Math.cos(theta),
+        y: radius * Math.sin(phi) * Math.sin(theta),
+        z: radius * Math.cos(phi),
+        px: 0,
+        py: 0,
+      });
+    }
+
+    let targetVx = 0.002;
+    let targetVy = 0.003;
+    let vx = 0.002;
+    let vy = 0.003;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left - rect.width / 2;
+      const my = e.clientY - rect.top - rect.height / 2;
+      targetVy = (mx / rect.width) * 0.035;
+      targetVx = -(my / rect.height) * 0.035;
+    };
+
+    const handleMouseLeave = () => {
+      targetVx = 0.002;
+      targetVy = 0.003;
+    };
+
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+
+    const render = () => {
+      vx += (targetVx - vx) * 0.08;
+      vy += (targetVy - vy) * 0.08;
+
+      const cosY = Math.cos(vy);
+      const sinY = Math.sin(vy);
+      const cosX = Math.cos(vx);
+      const sinX = Math.sin(vx);
+
+      particles.forEach((p) => {
+        const x1 = p.x * cosY - p.z * sinY;
+        const z1 = p.z * cosY + p.x * sinY;
+        const y2 = p.y * cosX - z1 * sinX;
+        const z2 = z1 * cosX + p.y * sinX;
+
+        p.x = x1;
+        p.y = y2;
+        p.z = z2;
+
+        const scale = focalLength / (focalLength + z2);
+        p.px = x1 * scale + width / 2;
+        p.py = y2 * scale + height / 2;
+      });
+
+      ctx.clearRect(0, 0, width, height);
+
+      // Connections
+      ctx.strokeStyle = darkMode ? "rgba(6, 182, 212, 0.08)" : "rgba(139, 92, 246, 0.08)";
+      ctx.lineWidth = 0.6;
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p1.x - p2.x;
+          const dy = p1.y - p2.y;
+          const dz = p1.z - p2.z;
+          const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+          if (dist < 42) {
+            ctx.beginPath();
+            ctx.moveTo(p1.px, p1.py);
+            ctx.lineTo(p2.px, p2.py);
+            ctx.stroke();
+          }
+        }
+      }
+
+      // Draw points
+      particles.forEach((p) => {
+        const depthOpacity = (p.z + radius) / (radius * 2);
+        const opacity = 0.15 + depthOpacity * 0.85;
+        ctx.fillStyle = darkMode
+          ? `rgba(6, 182, 212, ${opacity})`
+          : `rgba(139, 92, 246, ${opacity})`;
+
+        const size = depthOpacity * 1.8 + 1.2;
+        ctx.beginPath();
+        ctx.arc(p.px, p.py, size, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      animationFrameId = requestAnimationFrame(render);
+    };
+
+    render();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+    };
+  }, [darkMode]);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="cursor-grab active:cursor-grabbing max-w-full"
+      style={{ display: "block", margin: "0 auto" }}
+    />
+  );
+}
+
 function TechIcon({ name, size = 16, className = "" }: { name: string; size?: number; className?: string }) {
   const key = SKILL_ICON_MAP[name];
   const icon = key ? TECH_ICONS[key] : null;
@@ -224,8 +375,7 @@ function TechIcon({ name, size = 16, className = "" }: { name: string; size?: nu
   );
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
-
+// ─── Project Data ─────────────────────────────────────────────────────────────
 const projects = [
   {
     title: "Forgotten Recipes",
@@ -234,48 +384,48 @@ const projects = [
     stack: ["Mongodb", "Express.js", "React.js", "Node.js"],
     github: "https://github.com/madhukavirajith/Forgotten-Recipes.git",
     live: "https://forgotten-recipes.vercel.app/",
-    media: "#",
-    mediaType: "video",
+    media: "/projects/forgotten-recipes.png",
+    mediaType: "image",
   },
   {
     title: "Fitzone Fitness center",
     category: "Academic",
-    description: "A simple fitness center website built with HTML, CSS, MySQL and PHP.",
+    description: "A comprehensive dark-themed fitness dashboard and billing portal built with HTML, CSS, MySQL, and PHP.",
     stack: ["Html", "Css", "Php", "MySQL"],
     github: "https://github.com/madhukavirajith/fitzone.git",
     live: "#",
-    media: "#",
-    mediaType: "video",
+    media: "/projects/fitzone.png",
+    mediaType: "image",
   },
   {
     title: "Luxevista Resort",
     category: "Academic",
-    description: "A mobile app for a resort built with Java and MySQL, allowing users to book rooms, view amenities, and manage reservations.",
+    description: "A mobile resort booking app featuring custom room reservation pipelines, built using Java, Android SDK, and MySQL.",
     stack: ["Java", "MySql"],
     github: "#",
     live: "#",
-    media: "#",
-    mediaType: "video",
+    media: "/projects/luxevista.png",
+    mediaType: "image",
   },
   {
     title: "Tutor Hub",
     category: "Personal",
-    description: "A platform for connecting tutors and students, built with React for the frontend and Java Spring Boot for the backend, with MySQL for data storage.",
+    description: "A marketplace matching tutors and students, built with React for the frontend and Java Spring Boot for the backend APIs.",
     stack: ["React", "Java Spring Boot", "MySQL"],
     github: "https://github.com/madhukavirajith/tutor-finder-frontend.git",
     live: "#",
-    media: "#",
-    mediaType: "video",
+    media: "",
+    mediaType: "fallback",
   },
   {
     title: "Leave Tracker Pro",
     category: "Personal",
-    description: "A modern leave tracking desktop application built with C# and .NET, featuring a responsive UI and SQLite database integration.",
+    description: "A sleek human resources leave tracking desktop software built with C# and .NET 8, featuring responsive Windows Forms components and SQLite database integrations.",
     stack: ["C#", ".NET 8", "SQLite", "Windows Forms"],
     github: "https://github.com/madhukavirajith/LeaveTrackerPro.git",
     live: "#",
-    media: "#",
-    mediaType: "video",
+    media: "",
+    mediaType: "fallback",
   },
 ];
 
@@ -291,442 +441,1004 @@ const experiences = [
     title: "BSc (Hons) Computer Software Engineering",
     org: "Cardiff Metropolitan University",
     period: "Nov 2025 — Present",
-    desc: "Currently pursuing a bachelor's degree in Computer Software Engineering with a focus on software development, programming, and modern engineering practices.",
+    desc: "Focusing on software development methodologies, database administration, system design, and advanced software engineering pipelines.",
   },
   {
     title: "Higher Diploma in Computing and Software Engineering",
     org: "Cardiff Metropolitan University",
     period: "Jan 2024 — Nov 2025",
-    desc: "Completed the Higher Diploma with Merit",
+    desc: "Successfully graduated with Merit. Focused on fundamental web programming, structural programming (Java), system analysis, and team project management.",
   },
 ];
 
-const navItems = ["Home", "About", "Skills", "Projects", "Experience", "Contact"];
+const navItems = ["Home", "About", "Skills", "Projects", "Timeline", "Terminal", "Contact"];
 
 // ─── Shared Components ────────────────────────────────────────────────────────
-
 function SectionTitle({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
   return (
-    <div className="max-w-2xl">
-      <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.25em] text-cyan-300">
-        <Sparkles className="h-3.5 w-3.5" />
+    <div className="max-w-3xl mb-12">
+      <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-brand-cyan dark:border-brand-cyan/30 dark:bg-brand-cyan/10">
+        <Sparkles className="h-3.5 w-3.5 animate-pulse" />
         {eyebrow}
       </p>
-      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">{title}</h2>
-      <p className="mt-4 text-sm leading-7 text-slate-300 sm:text-base">{description}</p>
+      <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">{title}</h2>
+      <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">{description}</p>
     </div>
   );
 }
 
-// Chip WITH icon (for project stacks & skills)
+// Tech Skill badge with color brand indicator
 function SkillChip({ name }: { name: string }) {
   const hasIcon = !!SKILL_ICON_MAP[name];
   return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200 backdrop-blur-sm">
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-brand-cyan/40 hover:scale-[1.05]">
       {hasIcon && <TechIcon name={name} size={14} />}
       {name}
     </span>
   );
 }
 
-// Project Media Component
-function ProjectMedia({ project, theme }: { project: any; theme: any }) {
-  const [mediaError, setMediaError] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-
-  if (!project.media || project.media === "#" || mediaError) {
-    return (
-      <div className="h-56 bg-gradient-to-br from-cyan-500/20 via-blue-500/10 to-fuchsia-500/20 flex items-center justify-center">
-        <div className="text-center">
-          <Code2 className="h-10 w-10 text-cyan-400/50 mx-auto mb-2" />
-          <p className="text-sm text-slate-400">{project.title}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (project.mediaType === "video" || project.media.endsWith(".mp4") || project.media.endsWith(".webm")) {
-    return (
-      <div
-        className="relative h-56 overflow-hidden bg-black/40"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-          poster={project.poster}
-          onError={() => setMediaError(true)}
-        >
-          <source src={project.media} type={`video/${project.media.endsWith(".webm") ? "webm" : "mp4"}`} />
-        </video>
-        {isHovered && (
-          <div className="absolute inset-0 bg-black/20 flex items-center justify-center transition-opacity duration-300">
-            <div className="rounded-full bg-black/60 p-3 backdrop-blur-sm">
-              <ExternalLink className="h-6 w-6 text-white" />
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  }
-
-  return (
-    <div className="relative h-56 overflow-hidden bg-black/40">
-      <img
-        src={project.media}
-        alt={project.title}
-        className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-        loading="lazy"
-        onError={() => setMediaError(true)}
-      />
-    </div>
-  );
-}
-
 // ─── Main Component ───────────────────────────────────────────────────────────
-
 export default function MadhukaPortfolio() {
   const [darkMode, setDarkMode] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
+  const [scrollProgress, setScrollProgress] = useState(0);
 
+  // Typing Effect
+  const [titleIndex, setTitleIndex] = useState(0);
+  const [charIndex, setCharIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [displayText, setDisplayText] = useState("");
+  const titles = useMemo(() => ["Software Engineer", "Full-Stack Developer", "Creative UI/UX Designer"], []);
+
+  // Skill Tabs
+  const [activeSkillTab, setActiveSkillTab] = useState<"frontend" | "backend" | "database" | "tools">("frontend");
+
+  // Terminal State
+  const [terminalHistory, setTerminalHistory] = useState<string[]>([
+    "Madhuka Portfolio OS v1.2.0 (running Next.js + Turbopack)",
+    "Type 'help' to view all available commands.",
+    ""
+  ]);
+  const [terminalInput, setTerminalInput] = useState("");
+  const terminalEndRef = useRef<HTMLDivElement>(null);
+
+  // Chatbot State
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState<Array<{ sender: "bot" | "user"; text: string }>>([
+    { sender: "bot", text: "Hi! I am Madhuka's AI assistant. Ask me anything about his skills, education, or portfolio projects!" }
+  ]);
+  const [chatTyping, setChatTyping] = useState(false);
+  const chatbotMessagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Contact Form State
+  const [formName, setFormName] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formMessage, setFormMessage] = useState("");
+  const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success">("idle");
+
+  // Synchronize system colors and manual state
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  // Scroll Progress Calculation
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalHeight > 0) {
+        setScrollProgress((window.scrollY / totalHeight) * 100);
+      }
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // Typing animation effect
+  useEffect(() => {
+    const currentTitle = titles[titleIndex];
+    let timer: NodeJS.Timeout;
+
+    if (isDeleting) {
+      timer = setTimeout(() => {
+        setDisplayText(currentTitle.substring(0, charIndex - 1));
+        setCharIndex((prev) => prev - 1);
+      }, 40);
+    } else {
+      timer = setTimeout(() => {
+        setDisplayText(currentTitle.substring(0, charIndex + 1));
+        setCharIndex((prev) => prev + 1);
+      }, 80);
+    }
+
+    if (!isDeleting && charIndex === currentTitle.length) {
+      timer = setTimeout(() => setIsDeleting(true), 2500);
+    } else if (isDeleting && charIndex === 0) {
+      setIsDeleting(false);
+      setTitleIndex((prev) => (prev + 1) % titles.length);
+    }
+
+    return () => clearTimeout(timer);
+  }, [charIndex, isDeleting, titleIndex, titles]);
+
+  // Auto-scroll terminal and chatbot to bottom
+  useEffect(() => {
+    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [terminalHistory]);
+
+  useEffect(() => {
+    chatbotMessagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chatMessages, chatTyping]);
+
+  // Filtered Projects list
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") return projects;
     return projects.filter((project) => project.category === activeFilter);
   }, [activeFilter]);
 
-  const theme = darkMode
-    ? {
-        bg: "bg-[#030712]",
-        panel: "bg-white/5",
-        card: "bg-white/5",
-        text: "text-slate-100",
-        sub: "text-slate-300",
-        border: "border-white/10",
+  // Contact form submission handler
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formName || !formEmail || !formMessage) return;
+
+    setFormStatus("sending");
+    setTimeout(() => {
+      setFormStatus("success");
+      setFormName("");
+      setFormEmail("");
+      setFormMessage("");
+      setTimeout(() => setFormStatus("idle"), 5000);
+    }, 1500);
+  };
+
+  // Terminal commands interpreter
+  const handleTerminalSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const cmd = terminalInput.trim().toLowerCase();
+    if (!cmd) return;
+
+    const newHistory = [...terminalHistory, `guest@madhuka-portfolio:~$ ${terminalInput}`];
+
+    switch (cmd) {
+      case "help":
+        newHistory.push(
+          "Available Commands:",
+          "  about      - Background summary of Madhuka Virajith",
+          "  skills     - List technical skill catalog",
+          "  projects   - Show portfolio project descriptions",
+          "  contact    - Retrieve contact credentials & links",
+          "  clear      - Clear terminal screen log",
+          "  sudo coffee- Dispense compiled caffeine energy boost"
+        );
+        break;
+      case "about":
+        newHistory.push(
+          "Madhuka Virajith is a BSc (Hons) Computer Software Engineering undergraduate",
+          "at Cardiff Metropolitan University. Passionate about beautiful MERN stacks,",
+          "robust C# desktop APIs, and modern frontends with dynamic micro-interactions."
+        );
+        break;
+      case "skills":
+        newHistory.push(
+          "Frontend Tools : HTML, CSS, JavaScript, React.js, Tailwind CSS",
+          "Backend Engines : Node.js, Express.js, Java Spring Boot, C# / .NET 8, PHP",
+          "Database Systems: MongoDB, MySQL, SQLite",
+          "Utilities       : VS Code, Git, Docker, Postman, Vercel, Figma"
+        );
+        break;
+      case "projects":
+        newHistory.push(
+          "1. Forgotten Recipes - Sri Lankan ancient culinary database platform (MERN Stack)",
+          "2. Fitzone Fitness     - Sports center billing & management dashboard (PHP/MySQL)",
+          "3. Luxevista Resort    - Mobile room booking program (Java/MySQL)",
+          "4. Leave Tracker Pro   - HR desktop leave tracker widget (C# / .NET 8 / SQLite)"
+        );
+        break;
+      case "contact":
+        newHistory.push(
+          "Email    : virajith404@gmail.com",
+          "LinkedIn : linkedin.com/in/madhuka-virajith-599ba42a4/",
+          "GitHub   : github.com/madhukavirajith"
+        );
+        break;
+      case "clear":
+        setTerminalHistory([]);
+        setTerminalInput("");
+        return;
+      case "sudo coffee":
+        newHistory.push(
+          "☕ sudo: Compilation success!",
+          "  [========================================] 100%",
+          "  Dispensing 1 cup of hot double-espresso to developer guest! Happy coding!"
+        );
+        break;
+      default:
+        newHistory.push(`OS: command not found: '${cmd}'. Type 'help' for options.`);
+    }
+
+    newHistory.push("");
+    setTerminalHistory(newHistory);
+    setTerminalInput("");
+  };
+
+  // Chatbot response generator
+  const triggerChatbotReply = (questionText: string, actionType: string) => {
+    // Add user question
+    setChatMessages((prev) => [...prev, { sender: "user", text: questionText }]);
+    setChatTyping(true);
+
+    setTimeout(() => {
+      setChatTyping(false);
+      let answer = "";
+      if (actionType === "internship") {
+        answer = "Yes! Madhuka is actively seeking software engineering internships and graduate opportunities. He is ready to join a team immediately as a full-stack, frontend, or backend developer.";
+      } else if (actionType === "stack") {
+        answer = "His core tech stack includes React, Tailwind CSS, Node.js, Express.js, Java Spring Boot, and C# / .NET 8. He uses MySQL and MongoDB databases daily.";
+      } else if (actionType === "recipes") {
+        answer = "Forgotten Recipes is Madhuka's proudest academic project! It is a MERN stack application built to preserve Sri Lankan culinary heritage using modern interactive health charts and storytelling.";
+      } else if (actionType === "contact") {
+        answer = "You can reach out to Madhuka directly via email at virajith404@gmail.com, or check out his links below to connect on LinkedIn or GitHub!";
+      } else {
+        answer = "I'm always ready to assist! Ask about skills, internships, or projects using the options below.";
       }
+
+      setChatMessages((prev) => [...prev, { sender: "bot", text: answer }]);
+    }, 800);
+  };
+
+  const currentThemeClasses = darkMode
+    ? {
+      bg: "bg-[#030712]",
+      panel: "bg-white/5 border-white/10",
+      card: "bg-white/5 border-white/10 hover:border-brand-cyan/40",
+      text: "text-slate-100",
+      sub: "text-slate-300",
+      formInput: "bg-white/5 border-white/10 text-white focus:border-brand-cyan/50",
+    }
     : {
-        bg: "bg-slate-100",
-        panel: "bg-white/80",
-        card: "bg-white/80",
-        text: "text-slate-900",
-        sub: "text-slate-600",
-        border: "border-slate-200",
-      };
+      bg: "bg-slate-50",
+      panel: "bg-white/85 border-slate-200 shadow-lg",
+      card: "bg-white border-slate-200 shadow-md hover:shadow-xl hover:border-brand-violet/40",
+      text: "text-slate-900",
+      sub: "text-slate-600",
+      formInput: "bg-slate-50 border-slate-200 text-slate-950 focus:border-brand-violet/50",
+    };
 
   return (
-    <div className={`${theme.bg} min-h-screen overflow-x-hidden transition-colors duration-300`}>
-      {/* Background blobs */}
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute left-[-10%] top-[-10%] h-72 w-72 rounded-full bg-cyan-500/20 blur-3xl" />
-        <div className="absolute right-[-10%] top-[20%] h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl" />
-        <div className="absolute bottom-[-10%] left-[30%] h-80 w-80 rounded-full bg-blue-500/20 blur-3xl" />
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px] opacity-20" />
+    <div className={`${currentThemeClasses.bg} min-h-screen relative font-sans transition-colors duration-300 grid-bg-overlay`}>
+      {/* Scroll Progress Indicator Line */}
+      <div
+        className="fixed top-0 left-0 h-1 z-50 bg-gradient-to-r from-brand-cyan via-brand-violet to-brand-pink transition-all duration-100"
+        style={{ width: `${scrollProgress}%` }}
+      />
+
+      {/* Decorative Blur Background Blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden -z-20">
+        <div className="absolute left-[5%] top-[10%] w-[450px] h-[450px] rounded-full bg-brand-cyan/15 dark:bg-brand-cyan/10 blur-[130px] animate-pulse-glow" />
+        <div className="absolute right-[5%] top-[30%] w-[500px] h-[500px] rounded-full bg-brand-violet/15 dark:bg-brand-violet/10 blur-[140px] animate-pulse-glow" style={{ animationDelay: "-3s" }} />
+        <div className="absolute left-[25%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-brand-pink/15 dark:bg-brand-pink/10 blur-[120px] animate-pulse-glow" style={{ animationDelay: "-6s" }} />
       </div>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/10 bg-black/20 backdrop-blur-xl">
+      {/* ── Header & Navigation ────────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200/50 dark:border-white/10 bg-slate-50/70 dark:bg-[#030712]/60 backdrop-blur-xl transition-colors">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <a href="#home" className={`text-lg font-semibold ${theme.text}`}>
-            Madhuka<span className="text-cyan-400">.</span>
+          <a href="#home" className="text-xl font-bold tracking-tight text-slate-900 dark:text-white font-display">
+            Madhuka<span className="text-brand-cyan animate-pulse">.</span>
           </a>
+
           <nav className="hidden items-center gap-8 md:flex">
             {navItems.map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className={`text-sm transition hover:text-cyan-400 ${theme.sub}`}>
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-cyan dark:hover:text-brand-cyan transition-colors"
+              >
                 {item}
               </a>
             ))}
           </nav>
+
           <div className="flex items-center gap-3">
             <button
               onClick={() => setDarkMode((prev) => !prev)}
-              className={`rounded-full border ${theme.border} ${theme.panel} p-2 ${theme.text}`}
+              className="rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 p-2 text-slate-800 dark:text-slate-100 transition hover:bg-brand-cyan hover:text-slate-950 dark:hover:bg-brand-cyan dark:hover:text-slate-950 cursor-pointer"
               aria-label="Toggle theme"
             >
-              {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              {darkMode ? <Sun className="h-4.5 w-4.5" /> : <Moon className="h-4.5 w-4.5" />}
             </button>
+
             <button
               onClick={() => setMenuOpen((prev) => !prev)}
-              className={`rounded-full border ${theme.border} ${theme.panel} p-2 md:hidden ${theme.text}`}
+              className="rounded-full border border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5 p-2 text-slate-800 dark:text-slate-100 md:hidden transition cursor-pointer"
               aria-label="Toggle menu"
             >
               {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
-        {menuOpen && (
-          <div className="border-t border-white/10 px-6 py-4 md:hidden">
-            <div className="flex flex-col gap-4">
-              {navItems.map((item) => (
-                <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMenuOpen(false)} className={`${theme.sub} transition hover:text-cyan-400`}>
-                  {item}
-                </a>
-              ))}
-            </div>
-          </div>
-        )}
+
+        {/* Mobile Nav dropdown */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="border-t border-slate-200 dark:border-white/10 bg-slate-100/90 dark:bg-[#030712]/90 backdrop-blur-md px-6 py-4 md:hidden"
+            >
+              <div className="flex flex-col gap-4">
+                {navItems.map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    onClick={() => setMenuOpen(false)}
+                    className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-brand-cyan transition-colors"
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
-      <main>
-        {/* ── Hero ── */}
-        <section id="home" className="mx-auto max-w-7xl px-6 pb-24 pt-20 lg:px-8 lg:pt-28">
-          <div className="grid items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/20 bg-cyan-400/10 px-4 py-2 text-sm text-cyan-300">
-                <Sparkles className="h-4 w-4" />
-                Available for internships and graduate opportunities
+      {/* ── Main Layout ─────────────────────────────────────────────────────────── */}
+      <main className="mx-auto max-w-7xl px-6 lg:px-8">
+
+        {/* ── HERO SECTION ── */}
+        <section id="home" className="py-20 lg:py-28 relative">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+            <motion.div
+              initial={{ opacity: 0, y: 35 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 dark:bg-brand-cyan/10 px-4 py-2 text-xs font-semibold text-brand-cyan uppercase tracking-wider">
+                <Sparkles className="h-4 w-4 animate-spin" style={{ animationDuration: "3s" }} />
+                Open for Internships & Grad Roles
               </div>
-              <h1 className={`max-w-4xl text-5xl font-black leading-tight tracking-tight sm:text-6xl lg:text-7xl ${theme.text}`}>
+
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl font-display leading-[1.1]">
                 Hi, I&apos;m{" "}
-                <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-fuchsia-400 bg-clip-text text-transparent">
+                <span className="block mt-2 text-gradient">
                   Madhuka Virajith
                 </span>
               </h1>
-              <p className={`mt-6 max-w-2xl text-lg leading-8 ${theme.sub}`}>
-                Final Year Software Engineering Undergraduate building elegant, scalable, and high-performance digital products. I create modern full-stack applications with strong focus on user experience, clean architecture, and real-world impact.
+
+              {/* Dynamic Animated Subtitle typing */}
+              <div className="mt-4 h-10 flex items-center">
+                <span className="text-lg sm:text-xl font-medium text-slate-600 dark:text-slate-300 font-mono">
+                  &gt; {displayText}
+                </span>
+                <span className="w-2 h-6 bg-brand-cyan ml-1.5 animate-cursor-blink" />
+              </div>
+
+              <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
+                Final-year Software Engineering Undergraduate constructing highly optimized systems, aesthetic user interfaces, and custom full-stack solutions. Dedicated to coding with design integrity and functional simplicity.
               </p>
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                {["Full-Stack Developer", "UI-Focused Engineer", "Problem Solver"].map((tag) => (
-                  <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200 backdrop-blur-sm">
+
+              {/* Tag Badges */}
+              <div className="mt-8 flex flex-wrap gap-2.5">
+                {["MERN Stack Developer", "C# / .NET Specialist", "UI/UX Centered Developer", "Java Spring Boot Programmer"].map((tag) => (
+                  <span key={tag} className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 backdrop-blur-sm shadow-sm">
                     {tag}
                   </span>
                 ))}
               </div>
+
+              {/* Action Buttons */}
               <div className="mt-10 flex flex-wrap gap-4">
-                <a href="#projects" className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400 px-6 py-3 font-semibold text-slate-950 transition hover:scale-[1.02]">
-                  View Projects <ChevronRight className="h-4 w-4" />
+                <a
+                  href="#projects"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand-cyan to-brand-violet px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03] cursor-pointer"
+                >
+                  View Projects <ChevronRight className="h-4.5 w-4.5" />
                 </a>
-                <a href="#contact" className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} ${theme.panel} px-6 py-3 font-semibold ${theme.text} transition hover:scale-[1.02]`}>
+
+                <a
+                  href="#contact"
+                  className={`inline-flex items-center gap-2 rounded-2xl border ${currentThemeClasses.panel} px-6 py-3.5 text-sm font-semibold ${currentThemeClasses.text} transition hover:scale-[1.03] hover:bg-slate-200/50 dark:hover:bg-white/10 cursor-pointer`}
+                >
                   Contact Me
                 </a>
-                <a href="/Madhuka_Virajith_CV.pdf" className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} ${theme.panel} px-6 py-3 font-semibold ${theme.text}`}>
-                  <Download className="h-4 w-4" /> Download CV
+
+                <a
+                  href="/Madhuka_Virajith_CV.pdf"
+                  download
+                  className={`inline-flex items-center gap-2 rounded-2xl border ${currentThemeClasses.panel} px-6 py-3.5 text-sm font-semibold ${currentThemeClasses.text} transition hover:bg-slate-200/50 dark:hover:bg-white/10 cursor-pointer`}
+                >
+                  <Download className="h-4.5 w-4.5" /> Download CV
                 </a>
               </div>
-              <div className="mt-10 flex items-center gap-4">
+
+              {/* Social Channels */}
+              <div className="mt-10 flex items-center gap-3.5">
                 {[
-                  { href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" /> },
-                  { href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5 w-5" /> },
-                  { href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" /> },
+                  { href: "https://github.com/madhukavirajith", icon: <Github className="h-5.5 w-5.5" />, label: "GitHub" },
+                  { href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5.5 w-5.5" />, label: "LinkedIn" },
+                  { href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5.5 w-5.5" />, label: "Email" },
                 ].map((s, i) => (
-                  <a key={i} href={s.href} target={s.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" className={`rounded-2xl border ${theme.border} ${theme.panel} p-3 ${theme.text}`}>
+                  <a
+                    key={i}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    title={s.label}
+                    className={`rounded-2xl border ${currentThemeClasses.panel} p-3.5 ${currentThemeClasses.text} transition hover:scale-[1.08] hover:bg-slate-200/50 dark:hover:bg-white/10`}
+                  >
                     {s.icon}
                   </a>
                 ))}
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.15 }} className="relative">
-              <div className={`relative overflow-hidden rounded-[32px] border ${theme.border} ${theme.panel} p-6 shadow-2xl`}>
-                <div className="mb-6 flex items-center justify-between">
-                  <div>
-                    <p className={`text-sm ${theme.sub}`}>Profile Snapshot</p>
-                    <h3 className={`mt-1 text-xl font-semibold ${theme.text}`}>Software Engineer Portfolio</h3>
-                  </div>
-                  <div className="rounded-2xl bg-gradient-to-r from-cyan-400 to-fuchsia-400 p-3 text-slate-950">
-                    <Code2 className="h-5 w-5" />
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  {[
-                    { icon: <Layers3 className="h-5 w-5" />, color: "bg-cyan-400/10 text-cyan-300", title: "Frontend Engineering", sub: "Responsive, animated, modern interfaces" },
-                    { icon: <Server className="h-5 w-5" />, color: "bg-fuchsia-400/10 text-fuchsia-300", title: "Backend Development", sub: "APIs, authentication, databases, deployment" },
-                    { icon: <Database className="h-5 w-5" />, color: "bg-blue-400/10 text-blue-300", title: "System Thinking", sub: "Clean architecture and scalable solutions" },
-                  ].map((card) => (
-                    <div key={card.title} className="rounded-3xl border border-white/10 bg-black/20 p-5">
-                      <div className="flex items-center gap-3">
-                        <div className={`rounded-2xl ${card.color} p-3`}>{card.icon}</div>
-                        <div>
-                          <p className={`font-medium ${theme.text}`}>{card.title}</p>
-                          <p className={`text-sm ${theme.sub}`}>{card.sub}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+            {/* Profile Snapshot Visual Ring */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.92 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="relative flex justify-center lg:justify-end"
+            >
+              {/* Outer Glowing spinning halo ring */}
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-dashed border-brand-cyan/40 dark:border-brand-cyan/60 animate-spin" style={{ animationDuration: "25s" }} />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-88 h-88 rounded-full border border-dotted border-brand-violet/40 dark:border-brand-violet/50 animate-spin" style={{ animationDuration: "40s", animationDirection: "reverse" }} />
+              <div className={`relative overflow-hidden rounded-[32px] border ${currentThemeClasses.panel} p-3 shadow-2xl backdrop-blur-xl w-full max-w-[340px] bg-slate-900/10 dark:bg-white/5`}>
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[24px]">
+                  <img
+                    src="/portrait.png"
+                    alt="Madhuka Virajith Portrait"
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
                 </div>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ── About ── */}
-        <section id="about" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <SectionTitle
-            eyebrow="About Me"
-            title="Designing software experiences that feel polished and purposeful"
-            description="I am a final year software engineering undergraduate passionate about creating web applications that are not only functional, but also visually engaging and user-friendly. I enjoy transforming ideas into production-ready products using modern frameworks and thoughtful engineering practices."
-          />
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
+        {/* ── ABOUT ME SECTION ── */}
+        <section id="about" className="py-24 border-t border-slate-200 dark:border-white/10">
+          <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] mb-12 items-center">
+            <SectionTitle
+              eyebrow="Introduction"
+              title="Polished code built with structural design patterns"
+              description="I am Madhuka Virajith, a Cardiff Metropolitan University software undergraduate based in Sri Lanka. I love crafting clean, maintainable code architectures and pairing them with high-fidelity, premium user interfaces that interact fluidly with backends."
+            />
+            {/* Interactive 3D Canvas Particle Globe relocated from Hero */}
+            <div className="flex justify-center items-center h-52 border border-slate-200/50 dark:border-white/5 rounded-[32px] bg-slate-900/5 dark:bg-white/5 p-4 relative backdrop-blur-xl shadow-inner">
+              <ParticleGlobe darkMode={darkMode} />
+            </div>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-3">
             {[
-              { icon: <User className="h-5 w-5" />, title: "Who I Am", text: "A software engineering undergraduate focused on building clean, modern, and impactful digital products." },
-              { icon: <Briefcase className="h-5 w-5" />, title: "What I Build", text: "Full-stack systems, dashboards, portfolio sites, academic tools, and user-centered web applications." },
-              { icon: <GraduationCap className="h-5 w-5" />, title: "What I Value", text: "Strong UI, maintainable code, performance, scalability, and solving practical real-world problems." },
-            ].map((item) => (
-              <motion.div key={item.title} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className={`rounded-[28px] border ${theme.border} ${theme.card} p-6 backdrop-blur-xl`}>
-                <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-r from-cyan-400/20 to-fuchsia-400/20 p-3 text-cyan-300">{item.icon}</div>
-                <h3 className={`text-lg font-semibold ${theme.text}`}>{item.title}</h3>
-                <p className={`mt-3 text-sm leading-7 ${theme.sub}`}>{item.text}</p>
+              { icon: <User className="h-5 w-5" />, title: "Creative Ideation", text: "Transforming design sketches and project blueprints into functional, responsive code using modular components." },
+              { icon: <Briefcase className="h-5 w-5" />, title: "Full-Stack Adaptability", text: "Comfortable navigating database queries, setting up Express REST APIs, or tuning React interfaces." },
+              { icon: <GraduationCap className="h-5 w-5" />, title: "Academic Rigor", text: "Acquired higher diploma merit credentials, constantly researching code styling systems and software patterns." },
+            ].map((card, i) => (
+              <motion.div
+                key={card.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className={`rounded-3xl border ${currentThemeClasses.card} p-7 backdrop-blur-xl transition duration-300`}
+              >
+                <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-violet/20 p-3 text-brand-cyan">
+                  {card.icon}
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">{card.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-slate-650 dark:text-slate-300">{card.text}</p>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* ── Skills ── */}
-        <section id="skills" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+        {/* ── SKILLS & TOOLKIT SECTION ── */}
+        <section id="skills" className="py-24 border-t border-slate-200 dark:border-white/10">
           <SectionTitle
-            eyebrow="Skills"
-            title="My technical toolkit"
-            description="These are the technologies and tools I use to plan, build, deploy, and improve modern software products."
+            eyebrow="My Stack"
+            title="Technical toolkit & mastery levels"
+            description="I specialize in full-stack architecture. Hover or click on the skill groups to explore my experience levels and proficiency ratios."
           />
-          <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            {[
-              { title: "Frontend", icon: <Globe className="h-5 w-5" />, values: skills.frontend },
-              { title: "Backend", icon: <Server className="h-5 w-5" />, values: skills.backend },
-              { title: "Database", icon: <Database className="h-5 w-5" />, values: skills.database },
-              { title: "Tools", icon: <Code2 className="h-5 w-5" />, values: skills.tools },
-            ].map((group) => (
-              <div key={group.title} className={`rounded-[28px] border ${theme.border} ${theme.card} p-6`}>
-                <div className="mb-4 flex items-center gap-3">
-                  <div className="rounded-2xl bg-cyan-400/10 p-3 text-cyan-300">{group.icon}</div>
-                  <h3 className={`text-lg font-semibold ${theme.text}`}>{group.title}</h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {group.values.map((skill) => (
-                    <SkillChip key={skill} name={skill} />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
 
-        {/* ── Projects ── */}
-        <section id="projects" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <SectionTitle
-            eyebrow="Projects"
-            title="Selected work that reflects my engineering approach"
-            description="A curated set of projects demonstrating full-stack development, polished design, and practical problem solving."
-          />
-          <div className="mt-8 flex flex-wrap gap-3">
-            {["All", "Real World", "Academic", "Personal"].map((filter) => (
+          {/* Tab Selector buttons */}
+          <div className="flex flex-wrap gap-2.5 mb-10 border-b border-slate-200 dark:border-white/10 pb-4">
+            {(["frontend", "backend", "database", "tools"] as const).map((tab) => (
               <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
-                  activeFilter === filter ? "bg-cyan-400 text-slate-950" : `${theme.panel} ${theme.text} border ${theme.border}`
-                }`}
+                key={tab}
+                onClick={() => setActiveSkillTab(tab)}
+                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${activeSkillTab === tab
+                    ? "bg-gradient-to-r from-brand-cyan to-brand-violet text-white shadow-md"
+                    : "text-slate-550 dark:text-slate-400 hover:text-brand-cyan hover:bg-slate-100 dark:hover:bg-white/5"
+                  }`}
               >
-                {filter}
+                {tab} Group
               </button>
             ))}
           </div>
-          <div className="mt-12 grid gap-6 lg:grid-cols-2">
-            {filteredProjects.map((project, index) => (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className={`group rounded-[30px] border ${theme.border} ${theme.card} overflow-hidden hover:scale-[1.02] transition-transform duration-300`}
+
+          {/* Animated Skills Grid displaying progress bars */}
+          <div className="grid gap-4.5 sm:grid-cols-2 lg:grid-cols-3">
+            {skills[activeSkillTab].map((skillName, index) => {
+              const score = SKILL_PROFICIENCY[skillName] || 80;
+              return (
+                <motion.div
+                  key={skillName}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
+                  className={`rounded-2xl border ${currentThemeClasses.card} p-5 bg-slate-900/5 dark:bg-white/5`}
+                >
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center gap-2.5">
+                      <TechIcon name={skillName} size={18} />
+                      <span className="font-bold text-slate-800 dark:text-slate-200 font-display">{skillName}</span>
+                    </div>
+                    <span className="text-xs font-mono font-bold text-brand-cyan">{score}%</span>
+                  </div>
+
+                  {/* Progress track */}
+                  <div className="w-full bg-slate-200 dark:bg-white/10 h-2 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${score}%` }}
+                      transition={{ duration: 1, ease: "easeOut" }}
+                      className="h-full bg-gradient-to-r from-brand-cyan to-brand-violet rounded-full"
+                    />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </section>
+
+        {/* ── PROJECTS SHOWCASE ── */}
+        <section id="projects" className="py-24 border-t border-slate-200 dark:border-white/10">
+          <SectionTitle
+            eyebrow="Portfolio"
+            title="Curated academic & personal projects"
+            description="Explore selected systems utilizing dynamic user routing, API integration pipelines, and database relations."
+          />
+
+          {/* Category Filter Chips */}
+          <div className="flex flex-wrap gap-2.5 mb-10">
+            {["All", "Academic", "Personal"].map((filter) => (
+              <button
+                key={filter}
+                onClick={() => setActiveFilter(filter)}
+                className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${activeFilter === filter
+                    ? "bg-brand-cyan text-slate-950 shadow-md font-bold"
+                    : `border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-brand-cyan hover:text-brand-cyan`
+                  }`}
               >
-                <ProjectMedia project={project} theme={theme} />
-                <div className="p-6">
-                  <div className="mb-4 flex items-center justify-between gap-3">
+                {filter} Projects
+              </button>
+            ))}
+          </div>
+
+          {/* Projects showcase Grid */}
+          <div className="grid gap-8 lg:grid-cols-2">
+            {filteredProjects.map((project, idx) => {
+              const hasMedia = project.media && project.media !== "";
+              return (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className={`group rounded-3xl border ${currentThemeClasses.card} overflow-hidden transition-all duration-300 flex flex-col justify-between`}
+                >
+                  {/* Project Media Visual container */}
+                  <div className="relative h-60 w-full overflow-hidden bg-slate-900/50 flex items-center justify-center border-b border-slate-200 dark:border-white/10">
+                    {hasMedia ? (
+                      <img
+                        src={project.media}
+                        alt={project.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                      />
+                    ) : (
+                      <div className="text-center p-6">
+                        <Code2 className="h-12 w-12 text-brand-cyan/40 mx-auto mb-3 animate-float" />
+                        <span className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-mono">Code Repository</span>
+                        <p className="text-slate-700 dark:text-slate-300 font-bold mt-1">{project.title}</p>
+                      </div>
+                    )}
+                    {/* Dark gradient shadow */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent pointer-events-none" />
+                    <span className="absolute top-4 left-4 rounded-lg bg-black/60 backdrop-blur-md px-3 py-1 text-2xs font-bold uppercase tracking-wider text-brand-cyan">
+                      {project.category}
+                    </span>
+                  </div>
+
+                  {/* Body Content */}
+                  <div className="p-7 flex-grow flex flex-col justify-between">
                     <div>
-                      <p className="text-sm text-cyan-300">{project.category}</p>
-                      <h3 className={`mt-1 text-xl font-semibold ${theme.text}`}>{project.title}</h3>
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">{project.title}</h3>
+                      <p className="mt-3 text-sm leading-relaxed text-slate-650 dark:text-slate-350">{project.description}</p>
+
+                      {/* Stack used chips */}
+                      <div className="mt-5 flex flex-wrap gap-1.5">
+                        {project.stack.map((stackName) => (
+                          <span key={stackName} className="inline-flex items-center gap-1 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 px-2.5 py-1 text-2xs font-bold text-slate-500 dark:text-slate-400">
+                            <TechIcon name={stackName} size={10} />
+                            {stackName}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Anchor Actions */}
+                    <div className="mt-6 flex flex-wrap gap-3.5 pt-4 border-t border-slate-200/50 dark:border-white/5">
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`inline-flex items-center gap-2 rounded-xl border ${currentThemeClasses.panel} px-4 py-2.5 text-xs font-semibold ${currentThemeClasses.text} hover:bg-slate-200/50 dark:hover:bg-white/10 transition`}
+                      >
+                        <Github className="h-4 w-4" /> Codebase
+                      </a>
+                      {project.live !== "#" && (
+                        <a
+                          href={project.live}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-2 rounded-xl bg-brand-cyan hover:bg-brand-cyan/90 px-4 py-2.5 text-xs font-bold text-slate-950 transition"
+                        >
+                          <ExternalLink className="h-4 w-4" /> Live Site
+                        </a>
+                      )}
                     </div>
                   </div>
-                  <p className={`text-sm leading-7 ${theme.sub}`}>{project.description}</p>
-
-                  {/* Stack chips WITH icons */}
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {project.stack.map((item) => (
-                      <SkillChip key={item} name={item} />
-                    ))}
-                  </div>
-
-                  <div className="mt-6 flex flex-wrap gap-3">
-                    <a href={project.github} target="_blank" rel="noreferrer" className={`inline-flex items-center gap-2 rounded-2xl border ${theme.border} px-4 py-2 ${theme.text} hover:bg-white/10 transition`}>
-                      <Github className="h-4 w-4" /> GitHub
-                    </a>
-                    <a href={project.live} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-2xl bg-cyan-400 px-4 py-2 font-medium text-slate-950 hover:bg-cyan-300 transition">
-                      <ExternalLink className="h-4 w-4" /> Live Demo
-                    </a>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+                </motion.div>
+              );
+            })}
           </div>
         </section>
 
-        {/* ── Experience ── */}
-        <section id="experience" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
+        {/* ── TIMELINE (EDUCATION & JOURNEY) ── */}
+        <section id="timeline" className="py-24 border-t border-slate-200 dark:border-white/10">
           <SectionTitle
-            eyebrow="Experience & Education"
-            title="My journey so far"
-            description="A quick overview of my education, project work, and software development growth."
+            eyebrow="My Journey"
+            title="Education & software development checkpoints"
+            description="Chronological view of my academic qualifications and development experience."
           />
-          <div className="mt-12 space-y-6">
-            {experiences.map((item, index) => (
+
+          <div className="relative border-l-2 border-slate-200 dark:border-white/10 ml-4 md:ml-10 space-y-12 py-3">
+            {experiences.map((exp, idx) => (
               <motion.div
-                key={item.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={exp.title}
+                initial={{ opacity: 0, x: -25 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className={`rounded-[28px] border ${theme.border} ${theme.card} p-6`}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative pl-8 md:pl-12"
               >
-                <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
-                  <div>
-                    <h3 className={`text-xl font-semibold ${theme.text}`}>{item.title}</h3>
-                    <p className="mt-1 text-cyan-300">{item.org}</p>
-                    <p className={`mt-4 max-w-3xl text-sm leading-7 ${theme.sub}`}>{item.desc}</p>
+                {/* pulsing dot node indicator */}
+                <div className="absolute -left-[9px] top-1.5 w-4.5 h-4.5 rounded-full bg-brand-cyan border-4 border-slate-50 dark:border-[#030712] animate-pulse" />
+
+                <div className={`rounded-3xl border ${currentThemeClasses.panel} p-6 backdrop-blur-xl relative`}>
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 mb-4">
+                    <div>
+                      <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">{exp.title}</h3>
+                      <p className="text-sm font-semibold text-brand-cyan mt-0.5">{exp.org}</p>
+                    </div>
+                    <span className="inline-flex rounded-full bg-brand-cyan/10 border border-brand-cyan/20 px-3.5 py-1 text-xs font-semibold text-brand-cyan md:self-start">
+                      {exp.period}
+                    </span>
                   </div>
-                  <div className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-200">{item.period}</div>
+                  <p className="text-sm leading-relaxed text-slate-650 dark:text-slate-350">{exp.desc}</p>
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* ── Contact ── */}
-        <section id="contact" className="mx-auto max-w-7xl px-6 py-24 lg:px-8">
-          <div className={`rounded-[36px] border ${theme.border} ${theme.card} p-8 sm:p-10`}>
-            <SectionTitle
-              eyebrow="Contact"
-              title="Let's build something meaningful"
-              description="I'm open to internships, graduate roles, freelance work, and exciting software collaborations. Feel free to reach out."
-            />
-            <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {[
-                { label: "Email", value: "virajith404@gmail.com", href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" /> },
-                { label: "GitHub", value: "github.com/madhukavirajith", href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" /> },
-                { label: "LinkedIn", value: "linkedin.com/in/madhuka-virajith-599ba42a4/", href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5 w-5" /> },
-              ].map((item) => (
-                <a key={item.label} href={item.href} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined} className={`rounded-[28px] border ${theme.border} ${theme.panel} p-6 transition hover:-translate-y-1`}>
-                  <div className="mb-4 inline-flex rounded-2xl bg-cyan-400/10 p-3 text-cyan-300">{item.icon}</div>
-                  <p className={`text-sm ${theme.sub}`}>{item.label}</p>
-                  <p className={`mt-2 break-all font-medium ${theme.text}`}>{item.value}</p>
-                </a>
-              ))}
+        {/* ── INTERACTIVE CLI TERMINAL WIDGET ── */}
+        <section id="terminal" className="py-24 border-t border-slate-200 dark:border-white/10">
+          <SectionTitle
+            eyebrow="Console"
+            title="Interactive developer command line"
+            description=" recruiters and developers: Query details from my CV via this CLI terminal widget. Try typing 'help'."
+          />
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="w-full max-w-4xl mx-auto rounded-2xl border border-slate-700 bg-slate-950 overflow-hidden shadow-2xl font-mono text-xs sm:text-sm text-slate-250"
+          >
+            {/* Terminal Window Header controls */}
+            <div className="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
+              <div className="flex items-center gap-1.5">
+                <span className="w-3.5 h-3.5 rounded-full bg-rose-500 inline-block" />
+                <span className="w-3.5 h-3.5 rounded-full bg-amber-500 inline-block" />
+                <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 inline-block" />
+              </div>
+              <div className="text-slate-500 text-2xs uppercase tracking-wider font-semibold flex items-center gap-1">
+                <Terminal className="h-3.5 w-3.5" /> guest@madhuka-portfolio:~
+              </div>
+              <div className="w-12" />
             </div>
+
+            {/* Terminal console text pane */}
+            <div className="p-5 h-80 overflow-y-auto space-y-2 select-text bg-slate-950 text-slate-300">
+              {terminalHistory.map((line, i) => (
+                <div key={i} className="whitespace-pre-wrap leading-relaxed">
+                  {line.startsWith("guest@madhuka-portfolio:~$") ? (
+                    <span>
+                      <span className="text-emerald-400 font-bold hidden sm:inline">guest@madhuka-portfolio</span>
+                      <span className="text-slate-400 font-bold hidden sm:inline">:</span>
+                      <span className="text-brand-cyan font-bold">~$</span>{" "}
+                      {line.substring(27)}
+                    </span>
+                  ) : line.startsWith("OS:") ? (
+                    <span className="text-rose-400 font-bold">{line}</span>
+                  ) : line.includes("Available Commands:") || line.includes("☕ sudo:") ? (
+                    <span className="text-brand-pink font-bold">{line}</span>
+                  ) : (
+                    <span>{line}</span>
+                  )}
+                </div>
+              ))}
+              <div ref={terminalEndRef} />
+            </div>
+
+            {/* Terminal Command Input form */}
+            <form onSubmit={handleTerminalSubmit} className="bg-slate-900 border-t border-slate-800 p-4 flex items-center gap-2">
+              <span className="text-emerald-400 font-bold shrink-0 hidden sm:inline">guest@madhuka-portfolio</span>
+              <span className="text-slate-400 font-bold shrink-0 hidden sm:inline">:</span>
+              <span className="text-brand-cyan font-bold shrink-0">~$</span>
+              <input
+                type="text"
+                value={terminalInput}
+                onChange={(e) => setTerminalInput(e.target.value)}
+                placeholder="type 'help' and press Enter..."
+                className="bg-transparent border-none text-slate-100 placeholder-slate-650 focus:outline-none focus:ring-0 flex-grow font-mono"
+                autoComplete="off"
+                spellCheck="false"
+              />
+            </form>
+          </motion.div>
+        </section>
+
+        {/* ── CONTACT FORM SECTION ── */}
+        <section id="contact" className="py-24 border-t border-slate-200 dark:border-white/10">
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+
+            {/* Context Left */}
+            <div>
+              <SectionTitle
+                eyebrow="Get In Touch"
+                title="Let's build something premium together"
+                description="I am always interested in discussing internships, graduation placements, open-source architectures, or full-stack software development projects. Fill in the form or contact me directly."
+              />
+
+              <div className="space-y-4">
+                {[
+                  { label: "Mail Address", value: "virajith404@gmail.com", href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" /> },
+                  { label: "LinkedIn", value: "Madhuka Virajith", href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5 w-5" /> },
+                  { label: "GitHub Account", value: "github.com/madhukavirajith", href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" /> },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`flex items-center gap-4 rounded-2xl border ${currentThemeClasses.panel} p-5 transition hover:scale-[1.02] hover:bg-slate-200/50 dark:hover:bg-white/10`}
+                  >
+                    <div className="rounded-xl bg-brand-cyan/15 p-3.5 text-brand-cyan shrink-0">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="text-2xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-400">{item.label}</p>
+                      <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-1">{item.value}</p>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* Form Right */}
+            <div className={`rounded-[32px] border ${currentThemeClasses.panel} p-8 backdrop-blur-xl bg-slate-900/10 dark:bg-white/5`}>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 font-display">Send a Direct Message</h3>
+
+              {formStatus === "success" ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex flex-col items-center justify-center py-12 text-center"
+                >
+                  <CheckCircle2 className="h-16 w-16 text-emerald-400 mb-4 animate-bounce" />
+                  <h4 className="text-lg font-bold text-slate-900 dark:text-white font-display">Message Dispatched!</h4>
+                  <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-xs">
+                    Thanks for reaching out! Madhuka will get back to your email address shortly.
+                  </p>
+                </motion.div>
+              ) : (
+                <form onSubmit={handleContactSubmit} className="space-y-5">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div>
+                      <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Your Name</label>
+                      <input
+                        type="text"
+                        id="name"
+                        required
+                        value={formName}
+                        onChange={(e) => setFormName(e.target.value)}
+                        className={`w-full rounded-xl border px-4 py-3.5 text-sm focus:outline-none focus:ring-1 focus:ring-brand-cyan/50 ${currentThemeClasses.formInput}`}
+                        placeholder="John Doe"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Email Address</label>
+                      <input
+                        type="email"
+                        id="email"
+                        required
+                        value={formEmail}
+                        onChange={(e) => setFormEmail(e.target.value)}
+                        className={`w-full rounded-xl border px-4 py-3.5 text-sm focus:outline-none focus:ring-1 focus:ring-brand-cyan/50 ${currentThemeClasses.formInput}`}
+                        placeholder="john@example.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Your Message</label>
+                    <textarea
+                      id="message"
+                      rows={4}
+                      required
+                      value={formMessage}
+                      onChange={(e) => setFormMessage(e.target.value)}
+                      className={`w-full rounded-xl border px-4 py-3.5 text-sm focus:outline-none focus:ring-1 focus:ring-brand-cyan/50 ${currentThemeClasses.formInput}`}
+                      placeholder="Hi Madhuka, I'd like to discuss internship opportunities..."
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={formStatus === "sending"}
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brand-cyan to-brand-violet py-3.5 text-sm font-bold text-white shadow-lg transition hover:opacity-90 disabled:opacity-50 cursor-pointer"
+                  >
+                    {formStatus === "sending" ? "Dispatching Message..." : "Send Message"} <Send className="h-4 w-4" />
+                  </button>
+                </form>
+              )}
+            </div>
+
           </div>
         </section>
+
       </main>
 
-      <footer className="border-t border-white/10 px-6 py-8">
+      {/* ── FOOTER ── */}
+      <footer className="border-t border-slate-200 dark:border-white/10 px-6 py-10 bg-slate-100 dark:bg-black/20">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
-          <p className={`${theme.sub} text-sm`}>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
             © {new Date().getFullYear()} Madhuka Virajith. Built with Next.js, Tailwind CSS, and Framer Motion.
           </p>
-          <p className="text-sm text-cyan-300">madhukavirajith.com</p>
+          <a href="#home" className="text-sm font-bold text-brand-cyan hover:underline">
+            madhukavirajith.com
+          </a>
         </div>
       </footer>
+
+      {/* ── RESUME BOT (FLOATING CHAT ASSISTANT) ── */}
+      <div className="fixed bottom-6 right-6 z-40">
+        {/* Floating Bubble Icon */}
+        <button
+          onClick={() => setChatOpen((prev) => !prev)}
+          className="rounded-full bg-gradient-to-r from-brand-cyan via-brand-violet to-brand-pink p-4 text-white shadow-2xl transition hover:scale-[1.08] relative group cursor-pointer flex items-center justify-center"
+          aria-label="Toggle chat assistant"
+        >
+          {chatOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
+          <span className="absolute right-full mr-3 bg-black/80 backdrop-blur-md text-white text-2xs font-bold py-1 px-2.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition whitespace-nowrap">
+            Ask Resume Bot!
+          </span>
+        </button>
+
+        {/* Chat window panel */}
+        <AnimatePresence>
+          {chatOpen && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              className="absolute bottom-16 right-0 w-[calc(100vw-32px)] sm:w-88 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden font-sans text-xs"
+            >
+              {/* Header */}
+              <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                  <div>
+                    <h4 className="font-bold font-display">Resume AI Assistant</h4>
+                    <p className="text-3xs text-slate-400 tracking-wide">Online • Portfolio Bot</p>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setChatOpen(false)}
+                  className="text-slate-400 hover:text-white"
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+              </div>
+
+              {/* Message History pane */}
+              <div className="p-4 h-60 overflow-y-auto space-y-3 bg-slate-50 dark:bg-slate-950">
+                {chatMessages.map((msg, i) => (
+                  <div
+                    key={i}
+                    className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
+                  >
+                    <div
+                      className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed font-medium ${msg.sender === "user"
+                          ? "bg-brand-cyan text-slate-950 rounded-tr-none"
+                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-slate-850 dark:text-slate-200 rounded-tl-none shadow-sm"
+                        }`}
+                    >
+                      {msg.text}
+                    </div>
+                  </div>
+                ))}
+
+                {/* Typing indicator */}
+                {chatTyping && (
+                  <div className="flex justify-start">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl rounded-tl-none px-3.5 py-2.5 text-slate-450 dark:text-slate-400 shadow-sm flex items-center gap-1.5 font-bold">
+                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                      <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                    </div>
+                  </div>
+                )}
+
+                <div ref={chatbotMessagesEndRef} />
+              </div>
+
+              {/* Interactive buttons input pane */}
+              <div className="p-3.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
+                <p className="text-3xs uppercase tracking-wider text-slate-400 dark:text-slate-500 font-bold mb-1.5">Suggested Questions:</p>
+                <div className="flex flex-col gap-1.5">
+                  <button
+                    onClick={() => triggerChatbotReply("Are you seeking internships?", "internship")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                  >
+                    💼 Are you seeking internships?
+                  </button>
+                  <button
+                    onClick={() => triggerChatbotReply("What is your core tech stack?", "stack")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                  >
+                    🛠️ What is your core tech stack?
+                  </button>
+                  <button
+                    onClick={() => triggerChatbotReply("Tell me about Forgotten Recipes", "recipes")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                  >
+                    🥣 Tell me about Forgotten Recipes
+                  </button>
+                  <button
+                    onClick={() => triggerChatbotReply("How can I contact you?", "contact")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                  >
+                    ✉️ How can I contact you?
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
     </div>
   );
 }

@@ -1,20 +1,23 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
-  title: "Madhuka Virajith | Software Engineer",
-  description: "Full-stack software engineering portfolio",
+  title: "Madhuka Virajith | Premium Software Engineer & Full-Stack Developer",
+  description: "Portfolio of Madhuka Virajith, a software engineering undergraduate specializing in elegant MERN stack platforms, Java Spring Boot, and C#/.NET solutions with rich visual user experiences.",
+  keywords: ["Madhuka Virajith", "Software Engineer", "Full-Stack Developer", "Next.js Developer", "React Developer", "MERN Stack", "Sri Lanka Developer"],
 };
 
 export default function RootLayout({
@@ -23,9 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${outfit.variable} ${inter.variable} font-sans antialiased`}
       >
         {children}
       </body>
