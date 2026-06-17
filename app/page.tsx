@@ -503,6 +503,7 @@ export default function MadhukaPortfolio() {
   ]);
   const [terminalInput, setTerminalInput] = useState("");
   const terminalEndRef = useRef<HTMLDivElement>(null);
+  const hasMounted = useRef(false);
 
   // Chatbot State
   const [chatOpen, setChatOpen] = useState(false);
@@ -566,12 +567,17 @@ export default function MadhukaPortfolio() {
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, titleIndex, titles]);
 
-  // Auto-scroll terminal and chatbot to bottom
+  // Auto-scroll terminal and chatbot to bottom (skip initial render)
   useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return;
+    }
     terminalEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [terminalHistory]);
 
   useEffect(() => {
+    if (!hasMounted.current) return;
     chatbotMessagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages, chatTyping]);
 
