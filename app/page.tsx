@@ -6,6 +6,8 @@ import {
   Github,
   Linkedin,
   Mail,
+  Phone,
+  MapPin,
   ExternalLink,
   Download,
   Moon,
@@ -13,20 +15,26 @@ import {
   Code2,
   Briefcase,
   GraduationCap,
+  Award,
   User,
   Menu,
   X,
   ChevronRight,
   Sparkles,
-  Globe,
-  Database,
-  Server,
   Layers3,
   Terminal,
   Send,
   MessageSquare,
   ChevronDown,
   CheckCircle2,
+  Bot,
+  BrainCircuit,
+  Cpu,
+  Database,
+  Calendar,
+  Globe,
+  Check,
+  Copy,
 } from "lucide-react";
 
 // ─── Tech Icon SVG Paths ──────────────────────────────────────────────────────
@@ -46,30 +54,20 @@ const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string
     viewBox: "0 0 24 24",
     path: "M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.034-.676 1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z",
   },
+  python: {
+    color: "#3776AB",
+    viewBox: "0 0 24 24",
+    path: "M11.914 0C5.82 0 6.2 2.656 6.2 2.656l.006 2.75h5.81v.825H3.94S0 5.765 0 11.879c0 6.112 3.447 5.897 3.447 5.897h2.057v-2.884s-.112-3.447 3.39-3.447h5.795v-.844h-5.81V7.75h8.995s3.15.358 3.15-5.094C21.024.218 17.514 0 11.914 0zm-1.748 1.688a1.002 1.002 0 1 1 0 2.004 1.002 1.002 0 0 1 0-2.004zM12.086 24c6.094 0 5.714-2.656 5.714-2.656l-.006-2.75h-5.81v-.825h8.076s3.94.466 3.94-5.648c0-6.112-3.447-5.897-3.447-5.897h-2.057v2.884s.112 3.447-3.39 3.447H9.31v.844h5.81v2.75H6.125s-3.15-.358-3.15 5.094C2.975 23.782 6.486 24 12.086 24zm1.748-1.688a1.002 1.002 0 1 1 0-2.004 1.002 1.002 0 0 1 0 2.004z",
+  },
   react: {
     color: "#61DAFB",
     viewBox: "0 0 24 24",
-    path: "M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z",
+    path: "M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565z",
   },
   tailwindcss: {
     color: "#06B6D4",
     viewBox: "0 0 24 24",
     path: "M12.001 4.8c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624C13.666 10.618 15.027 12 18.001 12c3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C16.337 6.182 14.976 4.8 12.001 4.8zm-6 7.2c-3.2 0-5.2 1.6-6 4.8 1.2-1.6 2.6-2.2 4.2-1.8.913.228 1.565.89 2.288 1.624 1.177 1.194 2.538 2.576 5.512 2.576 3.2 0 5.2-1.6 6-4.8-1.2 1.6-2.6 2.2-4.2 1.8-.913-.228-1.565-.89-2.288-1.624C10.337 13.382 8.976 12 6.001 12z",
-  },
-  windowsforms: {
-    color: "#5C2D91",
-    viewBox: "0 0 24 24",
-    path: "M11.5 2l-9.5 2.5v15l9.5 2.5V2zm1 .18V21.82L22 19.5V4.5L12.5 2.18zM3 6.5h2v1H3v-1zm0 2.5h2v1H3V9zm0 2.5h2v1H3V11.5zm0 2.5h2v1H3V14zm10-7.5h6v1h-6V6.5zm0 2.5h6v1h-6V9zm0 2.5h6v1h-6V11.5zm0 2.5h6v1h-6V14z",
-  },
-  nodejs: {
-    color: "#339933",
-    viewBox: "0 0 24 24",
-    path: "M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.198.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.19-.137-.242L11.13 1.604a.271.271 0 0 0-.271 0L2.073 6.68c-.085.05-.139.146-.139.241v10.15c0 .097.054.189.139.235l2.409 1.391c1.307.654 2.108-.116 2.108-.891V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.019c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L1.226 18.439a1.847 1.847 0 0 1-.92-1.597V6.921c0-.659.353-1.272.92-1.599L9.019.247a1.886 1.886 0 0 1 1.866 0l7.793 4.075c.567.328.92.94.92 1.599v10.15c0 .659-.353 1.271-.92 1.597l-7.793 4.085c-.28.163-.6.247-.887.247zm2.42-6.993c-3.855 0-4.663-1.77-4.663-3.255 0-.142.114-.253.256-.253h1.138c.127 0 .233.092.252.217.172 1.161.684 1.748 3.017 1.748 1.857 0 2.646-.420 2.646-1.405 0-.568-.226-.991-3.119-1.274-2.418-.239-3.912-.773-3.912-2.708 0-1.783 1.503-2.846 4.024-2.846 2.829 0 4.231.982 4.408 3.091a.255.255 0 0 1-.065.196.257.257 0 0 1-.189.083H16.09a.256.256 0 0 1-.248-.196c-.276-1.222-.946-1.614-2.776-1.614-2.044 0-2.283.712-2.283 1.247 0 .648.28.836 3.023 1.202 2.717.362 4.008.877 4.008 2.769-.001 1.925-1.605 3.002-4.396 3.002z",
-  },
-  express: {
-    color: "#808080",
-    viewBox: "0 0 24 24",
-    path: "M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 011.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 000 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 002.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 01-2.589 3.957 6.272 6.272 0 01-7.306-.933 6.575 6.575 0 01-1.64-3.858c0-.235-.08-.455-.138-.82zm1.158-.228c-.48 0-1.907 0-2.84 0 .18-3.797 3.018-6.702 6.403-5.362 1.48.576 2.338 1.72 2.658 3.241a.66.66 0 01-.158.44H1.16z",
   },
   springboot: {
     color: "#6DB33F",
@@ -85,11 +83,6 @@ const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string
     color: "#239120",
     viewBox: "0 0 24 24",
     path: "M22.394 6c-.167-.29-.398-.543-.652-.69L12.926.22c-.509-.294-1.34-.294-1.848 0L2.26 5.31c-.508.293-.923 1.013-.923 1.6v10.18c0 .294.104.62.271.91.167.29.398.543.652.69l8.816 5.09c.508.293 1.34.293 1.848 0l8.816-5.09c.254-.147.485-.4.652-.69.167-.29.27-.616.27-.91V6.91c.003-.294-.1-.62-.268-.91zM12 19.11c-3.92 0-7.109-3.19-7.109-7.11 0-3.92 3.19-7.11 7.109-7.11a7.133 7.133 0 016.156 3.553l-3.076 1.78a3.567 3.567 0 00-3.08-1.78A3.56 3.56 0 008.444 12 3.56 3.56 0 0012 15.555a3.57 3.57 0 003.08-1.778l3.078 1.78A7.135 7.135 0 0112 19.11zm7.11-6.715h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79zm2.962 0h-.79v.79h-.79v-.79h-.79v-.79h.79v-.79h.79v.79h.79z",
-  },
-  php: {
-    color: "#777BB4",
-    viewBox: "0 0 24 24",
-    path: "M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .97-.105 1.242-.314.272-.21.455-.559.55-1.049.092-.47.05-.802-.124-.995-.175-.193-.523-.29-1.047-.29zM12 5.688C5.373 5.688 0 8.514 0 12s5.373 6.313 12 6.313S24 15.486 24 12c0-3.486-5.373-6.312-12-6.312zm-3.26 7.451c-.261.25-.575.438-.917.551-.336.108-.765.164-1.285.164H5.357l-.327 1.681H3.652l1.23-6.326h2.65c.797 0 1.378.209 1.744.628.366.418.476 1.002.33 1.752a2.836 2.836 0 01-.305.847 2.809 2.809 0 01-.561.703zm4.024.715l.543-2.799c.063-.318.039-.536-.068-.651-.107-.116-.336-.174-.687-.174H11.46l-.704 3.624H9.388l1.23-6.326h1.367l-.327 1.682h1.218c.767 0 1.295.134 1.586.401s.378.7.263 1.299l-.572 2.944H12.764zm7.203-4.272l-1.23 6.326h-1.316l.122-.641c-.285.25-.59.434-.917.551a2.8 2.8 0 01-.96.164c-.609 0-1.066-.196-1.37-.589-.305-.393-.38-.944-.224-1.652l.612-3.159h1.382l-.571 2.924c-.082.422-.058.731.069.93.127.198.351.297.672.297.341 0 .636-.107.887-.322.251-.215.422-.54.513-.976l.548-2.853 1.383.0z",
   },
   java: {
     color: "#007396",
@@ -116,105 +109,38 @@ const TECH_ICONS: Record<string, { path: string; color: string; viewBox?: string
     viewBox: "0 0 24 24",
     path: "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
   },
-  figma: {
-    color: "#F24E1E",
-    viewBox: "0 0 24 24",
-    path: "M5.809 23.136c2.077 0 3.765-1.689 3.765-3.765v-3.765H5.809A3.766 3.766 0 002.044 19.37a3.766 3.766 0 003.765 3.765zm0-9.412h3.765V9.96H5.809A3.766 3.766 0 002.044 13.724a3.766 3.766 0 003.765 3.765zm0-7.529A3.766 3.766 0 002.044 9.96a3.766 3.766 0 003.765 3.765h3.765V6.196H5.809zM9.574.864H5.809A3.766 3.766 0 002.044 4.63a3.766 3.766 0 003.765 3.765h3.765zm3.765 9.412a3.766 3.766 0 003.765-3.764 3.766 3.766 0 00-3.765-3.765v7.53zm0 .882a3.765 3.765 0 000 7.53 3.766 3.766 0 003.765-3.764 3.766 3.766 0 00-3.765-3.765z",
-  },
-  vercel: {
-    color: "#ffffff",
-    viewBox: "0 0 24 24",
-    path: "M24 22.525H0l12-21.05 12 21.05z",
-  },
-  render: {
-    color: "#46E3B7",
-    viewBox: "0 0 24 24",
-    path: "M3.293 7.488a.977.977 0 010-1.38l4.59-4.59a.978.978 0 011.38 0l4.59 4.59a.975.975 0 010 1.38l-4.59 4.59a.977.977 0 01-1.38 0zM1.913 21.99l9.19-9.185 1.38 1.38-9.19 9.185zm9.185-9.185l9.185 9.185-1.38 1.38-9.185-9.185z",
-  },
-  xampp: {
-    color: "#FB7A24",
-    viewBox: "0 0 24 24",
-    path: "M11.976.002C5.358.002 0 5.36 0 11.978s5.358 11.976 11.976 11.976 11.978-5.358 11.978-11.976S18.594.002 11.976.002zm5.702 15.908l-1.58 1.58-4.122-4.124-4.124 4.124-1.58-1.58 4.124-4.122-4.124-4.124 1.58-1.58 4.124 4.124 4.122-4.124 1.58 1.58-4.122 4.124z",
-  },
-  visualstudio: {
-    color: "#5C2D91",
-    viewBox: "0 0 24 24",
-    path: "M17.583.063L9.297 8.35.84 5.656 0 6.437v11.125l.84.781 8.457-2.693 8.286 8.286L24 21.562V2.438zM1.862 16.722V7.278L7.453 12zm9.055-.601L4.917 12l6-4.121V11.5l-2.721 .5 2.721.5z",
-  },
-  vscode: {
-    color: "#007ACC",
-    viewBox: "0 0 24 24",
-    path: "M23.15 2.587L18.21.21a1.494 1.494 0 00-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 00-1.276.057L.327 7.261A1 1 0 00.326 8.74L3.899 12 .326 15.26a1 1 0 00.001 1.479L1.65 17.94a.999.999 0 001.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 001.704.29l4.942-2.377A1.5 1.5 0 0024 20.06V3.939a1.5 1.5 0 00-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z",
-  },
-  intellij: {
-    color: "#000000",
-    viewBox: "0 0 24 24",
-    path: "M0 0v24h24V0zm14.682 4.28h3.108v1.08h-1.968v.702h1.968v1.056h-1.968v.744h1.986v1.08H14.68zm-3.852.018h2.304c1.296 0 2.034.738 2.034 1.8 0 1.098-.774 1.854-2.07 1.854h-2.268V4.298zM5.124 8.76l-1.176-.534-.036-.054v-.018l1.176.552zM2.808 4.28h1.242l1.908 4.698H4.68l-.342-.906H2.7l-.342.906H1.08zm8.262 14.238H6.3v-.9h1.638v-5.754H6.3v-.9h4.77v.9H9.432v5.754H10.07zM12 19.656c-4.227 0-7.656-3.43-7.656-7.656S7.773 4.344 12 4.344 19.656 7.773 19.656 12 16.227 19.656 12 19.656zm3.636-2.148H11.88v-.9h1.314v-5.754H11.88v-.9h3.756v.9h-1.314v5.754H15.636z",
-  },
-  androidstudio: {
-    color: "#3DDC84",
-    viewBox: "0 0 24 24",
-    path: "M12 0a12 12 0 110 24A12 12 0 0112 0zM9.147 7.31a.5.5 0 00-.5.5v.5h-.25a1.25 1.25 0 00-1.25 1.25v5a1.25 1.25 0 001.25 1.25h.25v.5a.5.5 0 001 0v-.5h4v.5a.5.5 0 001 0v-.5h.25a1.25 1.25 0 001.25-1.25v-5a1.25 1.25 0 00-1.25-1.25h-.25v-.5a.5.5 0 00-1 0v.5h-4v-.5a.5.5 0 00-.5-.5zm-.75 2.25h7v4.5h-7v-4.5zm1.25 1a.75.75 0 100 1.5.75.75 0 000-1.5zm4 0a.75.75 0 100 1.5.75.75 0 000-1.5zM8.5 5.5l-1 1.732h2L8.5 5.5zm7 0l-1 1.732h2L15.5 5.5z",
-  },
-  postman: {
-    color: "#FF6C37",
-    viewBox: "0 0 24 24",
-    path: "M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm2.471 7.485a.855.855 0 0 0-.593.25l-4.453 4.453-.307-.307-.643-.643 4.453-4.453a.858.858 0 1 0-1.018-1.374l-4.705 4.705-.398-.397c-.963-.964-2.686-.236-2.652 1.12l.004.223c.017 1.022.068 2.977.068 2.977.023.235.143.48.405.736l3.116 3.116c.262.262.5.382.737.405 0 0 1.955.052 2.977.068l.225.003c1.357.034 2.085-1.689 1.12-2.653l-.398-.397 4.705-4.705a.858.858 0 0 0-1.373-1.019zm-6.838 8.356l-1.452-1.452-.068-2.325-.073-.31.492.49.308.307.793.794.068 2.325.073.31-.14-.139z",
-  },
   docker: {
     color: "#2496ED",
     viewBox: "0 0 24 24",
-    path: "M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186h-2.12a.186.186 0 00-.185.185v1.888c0 .102.084.185.186.185m-2.92 0h2.12a.186.186 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z",
+    path: "M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.185-.186h-2.12a.185.185 0 00-.185.185v1.888c0 .102.084.185.186.185m-2.92 0h2.12a.186.186 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z",
   },
-  phpmyadmin: {
-    color: "#6C78AF",
+  php: {
+    color: "#777BB4",
     viewBox: "0 0 24 24",
-    path: "M11.987 0C5.372 0 0 5.372 0 11.986c0 6.613 5.372 11.988 11.987 11.988 6.613 0 11.987-5.375 11.987-11.988C23.974 5.372 18.6 0 11.987 0zM9.36 15.388H7.975V9.504h-.012L6.298 15.388H5.19L3.525 9.504h-.012v5.884H2.127V8.006h2.137l1.444 5.377h.018l1.444-5.377H9.36zm5.255-3.36c0 .22-.018.427-.053.625a1.91 1.91 0 01-.19.565 1.71 1.71 0 01-.366.457 1.72 1.72 0 01-.596.317c-.245.079-.539.12-.882.12h-.87v1.877H11.21V8.006h1.932c.33 0 .618.042.864.126.247.084.456.204.627.358.172.157.302.344.393.565.09.222.137.468.14.736zm-.12 3.36h-1.2v-1.877h.87c.343 0 .636-.041.882-.12a1.72 1.72 0 00.596-.317c.153-.14.275-.28.366-.457a1.91 1.91 0 00.19-.565c.035-.198.053-.405.053-.625-.003-.268-.05-.514-.14-.736a1.44 1.44 0 00-.393-.565 1.62 1.62 0 00-.627-.358 2.49 2.49 0 00-.864-.126H12.36v7.382h1.444zm4.997 0h-1.444V8.006h1.432v3.067l2.304-3.067h1.756l-2.567 3.192 2.733 4.19h-1.733l-1.858-2.99-.623.783z",
+    path: "M7.01 10.207h-.944l-.515 2.648h.838c.556 0 .97-.105 1.242-.314.272-.21.455-.559.55-1.049.092-.47.05-.802-.124-.995-.175-.193-.523-.29-1.047-.29zM12 5.688C5.373 5.688 0 8.514 0 12s5.373 6.313 12 6.313S24 15.486 24 12c0-3.486-5.373-6.312-12-6.312zm-3.26 7.451c-.261.25-.575.438-.917.551-.336.108-.765.164-1.285.164H5.357l-.327 1.681H3.652l1.23-6.326h2.65c.797 0 1.378.209 1.744.628.366.418.476 1.002.33 1.752a2.836 2.836 0 01-.305.847 2.809 2.809 0 01-.561.703zm4.024.715l.543-2.799c.063-.318.039-.536-.068-.651-.107-.116-.336-.174-.687-.174H11.46l-.704 3.624H9.388l1.23-6.326h1.367l-.327 1.682h1.218c.767 0 1.295.134 1.586.401s.378.7.263 1.299l-.572 2.944H12.764zm7.203-4.272l-1.23 6.326h-1.316l.122-.641c-.285.25-.59.434-.917.551a2.8 2.8 0 01-.96.164c-.609 0-1.066-.196-1.37-.589-.305-.393-.38-.944-.224-1.652l.612-3.159h1.382l-.571 2.924c-.082.422-.058.731.069.93.127.198.351.297.672.297.341 0 .636-.107.887-.322.251-.215.422-.54.513-.976l.548-2.853 1.383.0z",
+  },
+  nodejs: {
+    color: "#339933",
+    viewBox: "0 0 24 24",
+    path: "M11.998 24c-.321 0-.641-.084-.922-.247l-2.936-1.737c-.438-.245-.224-.332-.08-.383.585-.203.703-.25 1.328-.604.065-.037.151-.023.218.017l2.256 1.339c.082.045.198.045.272 0l8.795-5.076c.082-.047.134-.141.134-.238V6.921c0-.099-.053-.19-.137-.242L11.13 1.604a.271.271 0 0 0-.271 0L2.073 6.68c-.085.05-.139.146-.139.241v10.15c0 .097.054.189.139.235l2.409 1.391c1.307.654 2.108-.116 2.108-.891V7.787c0-.142.114-.253.256-.253h1.115c.139 0 .255.111.255.253v10.019c0 1.745-.95 2.745-2.604 2.745-.508 0-.909 0-2.026-.551L1.226 18.439a1.847 1.847 0 0 1-.92-1.597V6.921c0-.659.353-1.272.92-1.599L9.019.247a1.886 1.886 0 0 1 1.866 0l7.793 4.075c.567.328.92.94.92 1.599v10.15c0 .659-.353 1.271-.92 1.597l-7.793 4.085c-.28.163-.6.247-.887.247zm2.42-6.993c-3.855 0-4.663-1.77-4.663-3.255 0-.142.114-.253.256-.253h1.138c.127 0 .233.092.252.217.172 1.161.684 1.748 3.017 1.748 1.857 0 2.646-.420 2.646-1.405 0-.568-.226-.991-3.119-1.274-2.418-.239-3.912-.773-3.912-2.708 0-1.783 1.503-2.846 4.024-2.846 2.829 0 4.231.982 4.408 3.091a.255.255 0 0 1-.065.196.257.257 0 0 1-.189.083H16.09a.256.256 0 0 1-.248-.196c-.276-1.222-.946-1.614-2.776-1.614-2.044 0-2.283.712-2.283 1.247 0 .648.28.836 3.023 1.202 2.717.362 4.008.877 4.008 2.769-.001 1.925-1.605 3.002-4.396 3.002z",
+  },
+  express: {
+    color: "#808080",
+    viewBox: "0 0 24 24",
+    path: "M24 18.588a1.529 1.529 0 01-1.895-.72l-3.45-4.771-.5-.667-4.003 5.444a1.466 1.466 0 01-1.802.708l5.158-6.92-4.798-6.251a1.595 1.595 0 011.9.666l3.576 4.83 3.596-4.81a1.435 1.435 0 011.788-.668L21.708 7.9l-2.522 3.283a.666.666 0 000 .994l4.804 6.412zM.002 11.576l.42-2.075c1.154-4.103 5.858-5.81 9.094-3.27 1.895 1.489 2.368 3.597 2.275 5.973H1.116C.943 16.447 4.005 19.009 7.92 17.7a4.078 4.078 0 002.582-2.876c.207-.666.548-.78 1.174-.588a5.417 5.417 0 01-2.589 3.957 6.272 6.272 0 01-7.306-.933 6.575 6.575 0 01-1.64-3.858c0-.235-.08-.455-.138-.82zm1.158-.228c-.48 0-1.907 0-2.84 0 .18-3.797 3.018-6.702 6.403-5.362 1.48.576 2.338 1.72 2.658 3.241a.66.66 0 01-.158.44H1.16z",
   },
 };
 
-// Map display name → icon key
 const SKILL_ICON_MAP: Record<string, string> = {
-  Html: "html", HTML: "html",
-  Css: "css", CSS: "css",
-  JavaScript: "javascript",
-  "React.js": "react", React: "react",
-  "Tailwind CSS": "tailwindcss",
-  "Windows Forms": "windowsforms",
-  "Node.js": "nodejs",
-  "Express.js": "express",
-  "Java Spring Boot": "springboot",
-  "C# / .NET 8": "csharp",
-  PHP: "php", Php: "php",
-  Java: "java",
-  MongoDB: "mongodb", Mongodb: "mongodb",
-  MySQL: "mysql", MySql: "mysql",
-  SQLite: "sqlite",
-  ".NET 8": "dotnet",
-  "C#": "csharp",
-  GitHub: "github",
-  Figma: "figma",
-  Vercel: "vercel",
-  Render: "render",
-  XAMPP: "xampp",
-  "Visual Studio": "visualstudio",
-  "IntelliJ IDEA": "intellij",
-  Postman: "postman",
-  Docker: "docker",
-  "VS Code": "vscode",
-  "Android Studio": "androidstudio",
-  PHPMyAdmin: "phpmyadmin",
+  Java: "java", "Java 17": "java", "Spring Boot": "springboot", "Spring AI": "springboot", "Spring Security": "springboot",
+  Python: "python", JavaScript: "javascript", React: "react", "React.js": "react",
+  "Tailwind CSS": "tailwindcss", "C#": "csharp", ".NET 8": "dotnet",
+  PHP: "php", MongoDB: "mongodb", MySQL: "mysql", SQLite: "sqlite",
+  Docker: "docker", "Node.js": "nodejs", "Express.js": "express",
+  HTML: "html", HTML5: "html", CSS: "css", CSS3: "css", GitHub: "github", "Git/GitHub": "github"
 };
 
-// Skill Proficiency Data (out of 100)
-const SKILL_PROFICIENCY: Record<string, number> = {
-  Html: 95, CSS: 90, Css: 90, JavaScript: 92, "React.js": 90, "Tailwind CSS": 95, "Windows Forms": 75,
-  "Node.js": 88, "Express.js": 85, "Java Spring Boot": 82, "C# / .NET 8": 80, PHP: 75,
-  MongoDB: 84, MySQL: 88, SQLite: 80,
-  GitHub: 92, Figma: 78, Vercel: 85, Render: 80, XAMPP: 82, "Visual Studio": 85, "IntelliJ IDEA": 80, Postman: 85, Docker: 72, "VS Code": 95, "Android Studio": 70, PHPMyAdmin: 80
-};
-
-// ─── 3D Particle Globe Component ──────────────────────────────────────────────
+// ─── 3D Particle Globe ────────────────────────────────────────────────────────
 function ParticleGlobe({ darkMode }: { darkMode: boolean }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -230,9 +156,9 @@ function ParticleGlobe({ darkMode }: { darkMode: boolean }) {
     canvas.width = width;
     canvas.height = height;
 
-    const radius = 70;
-    const particleCount = 70;
-    const focalLength = 155;
+    const radius = 68;
+    const particleCount = 75;
+    const focalLength = 150;
 
     interface Particle {
       x: number;
@@ -302,7 +228,7 @@ function ParticleGlobe({ darkMode }: { darkMode: boolean }) {
 
       ctx.clearRect(0, 0, width, height);
 
-      // Connections
+      // Web connections
       ctx.strokeStyle = darkMode ? "rgba(6, 182, 212, 0.08)" : "rgba(139, 92, 246, 0.08)";
       ctx.lineWidth = 0.6;
       for (let i = 0; i < particles.length; i++) {
@@ -322,7 +248,7 @@ function ParticleGlobe({ darkMode }: { darkMode: boolean }) {
         }
       }
 
-      // Draw points
+      // Draw nodes
       particles.forEach((p) => {
         const depthOpacity = (p.z + radius) / (radius * 2);
         const opacity = 0.15 + depthOpacity * 0.85;
@@ -357,10 +283,12 @@ function ParticleGlobe({ darkMode }: { darkMode: boolean }) {
   );
 }
 
-function TechIcon({ name, size = 16, className = "" }: { name: string; size?: number; className?: string }) {
+function TechIcon({ name, size = 15, className = "" }: { name: string; size?: number; className?: string }) {
   const key = SKILL_ICON_MAP[name];
   const icon = key ? TECH_ICONS[key] : null;
-  if (!icon) return null;
+  if (!icon) {
+    return <Code2 className={`inline-block ${className}`} style={{ width: size, height: size }} />;
+  }
   return (
     <svg
       width={size}
@@ -375,140 +303,303 @@ function TechIcon({ name, size = 16, className = "" }: { name: string; size?: nu
   );
 }
 
-// ─── Project Data ─────────────────────────────────────────────────────────────
-const projects = [
+// ─── Complete 8 Projects from CV ─────────────────────────────────────────────
+interface ProjectItem {
+  id: string;
+  title: string;
+  category: "Personal" | "Academic";
+  domain: string;
+  period: string;
+  stack: string[];
+  github: string;
+  live?: string;
+  image: string;
+  bullets: string[];
+}
+
+const ALL_PROJECTS: ProjectItem[] = [
   {
-    title: "Forgotten Recipes",
-    category: "Academic",
-    description: "A MERN-based interactive platform to preserve, promote, and personalize Sri Lanka's ancient culinary heritage - with modern health tools and cultural storytelling.",
-    stack: ["Mongodb", "Express.js", "React.js", "Node.js"],
-    github: "https://github.com/madhukavirajith/Forgotten-Recipes.git",
-    live: "https://forgotten-recipes.vercel.app/",
-    media: "/projects/forgotten-recipes.png",
-    mediaType: "image",
-  },
-  {
-    title: "Fitzone Fitness center",
-    category: "Academic",
-    description: "A comprehensive dark-themed fitness dashboard and billing portal built with HTML, CSS, MySQL, and PHP.",
-    stack: ["Html", "Css", "Php", "MySQL"],
-    github: "https://github.com/madhukavirajith/fitzone.git",
-    live: "#",
-    media: "/projects/fitzone.png",
-    mediaType: "image",
-  },
-  {
-    title: "Luxevista Resort",
-    category: "Academic",
-    description: "A mobile resort booking app featuring custom room reservation pipelines, built using Java, Android SDK, and MySQL.",
-    stack: ["Java", "MySql"],
-    github: "#",
-    live: "#",
-    media: "/projects/luxevista.png",
-    mediaType: "image",
-  },
-  {
-    title: "Tutor Hub",
+    id: "tutor-finder",
+    title: "Tutor Finder - AI Powered Tutor Booking & Recommendation Platform",
     category: "Personal",
-    description: "A marketplace matching tutors and students, built with React for the frontend and Java Spring Boot for the backend APIs.",
-    stack: ["React", "Java Spring Boot", "MySQL"],
-    github: "https://github.com/madhukavirajith/tutor-finder-frontend.git",
-    live: "#",
-    media: "",
-    mediaType: "fallback",
+    domain: "Full-Stack & AI",
+    period: "Feb 2026 - Jul 2026",
+    stack: ["Java", "Spring Boot", "Spring AI", "Spring Security", "React", "Tailwind CSS", "Google Gemini API"],
+    github: "https://github.com/madhukavirajith/tutor-finder-frontend",
+    live: "https://tutor-finder-frontend.vercel.app",
+    image: "/projects/tutor-finder.png",
+    bullets: [
+      "Implemented a custom Trie with Depth-First Search in Java for real-time, case-insensitive subject autocomplete.",
+      "Designed a hybrid recommendation engine using a Max-Heap (PriorityQueue) to rank the top K tutors in O(K log N) time, with Levenshtein Distance for fuzzy search.",
+      "Integrated a context-aware AI chatbot (Spring AI + Google Gemini) with topic guardrails; secured the platform with JWT/Spring Security role-based access for students, tutors, and admins.",
+    ],
   },
   {
-    title: "Leave Tracker Pro",
+    id: "leave-tracker-pro",
+    title: "LeaveTrackerPro - Desktop Employee Leave Management System",
     category: "Personal",
-    description: "A sleek human resources leave tracking desktop software built with C# and .NET 8, featuring responsive Windows Forms components and SQLite database integrations.",
-    stack: ["C#", ".NET 8", "SQLite", "Windows Forms"],
-    github: "https://github.com/madhukavirajith/LeaveTrackerPro.git",
-    live: "#",
-    media: "",
-    mediaType: "fallback",
+    domain: "Desktop Software",
+    period: "Jan 2026 - Jun 2026",
+    stack: ["C#", ".NET 8", "Windows Forms", "SQLite"],
+    github: "https://github.com/madhukavirajith/LeaveTrackerPro",
+    image: "/projects/leave.png",
+    bullets: [
+      "Built an enterprise-style desktop app supporting leave requests, manager approvals, and admin policy management with immutable audit logs.",
+      "Implemented leave-balance tracking across 6 leave types, a team-availability calendar, Excel export for HR reporting, and BCrypt password hashing.",
+    ],
+  },
+  {
+    id: "mars-pressure-predictor",
+    title: "MEDA Mars Atmospheric Pressure Predictor - Virtual Sensor Recovery for NASA Perseverance",
+    category: "Academic",
+    domain: "AI / Machine Learning",
+    period: "Jun 2026 - Aug 2026",
+    stack: ["Python", "Streamlit", "XGBoost", "scikit-learn", "Pandas", "NumPy", "Matplotlib"],
+    github: "https://github.com/madhukavirajith/mars-pressure-predictor",
+    live: "https://mars-pressure-predictor.streamlit.app",
+    image: "/projects/mars.png",
+    bullets: [
+      "Built an ML web app that reconstructs Martian atmospheric pressure from 23 correlated MEDA telemetry channels (temperature, humidity, solar irradiance, rover kinematics) from NASA’s Perseverance Rover at Jezero Crater.",
+      "Trained and serialised an XGBoost regression model with a scikit-learn imputation pipeline to handle missing sensor data in real time, enabling virtual recovery of a failed pressure transducer.",
+      "Built an interactive Streamlit dashboard with preset mission scenarios and a zoned pressure gauge; deployed on Streamlit Cloud with cached model loading for low-latency inference.",
+    ],
+  },
+  {
+    id: "carbon-wise-sl",
+    title: "CarbonWise SL - AI Powered Household Carbon Prediction & Reduction Platform",
+    category: "Academic",
+    domain: "Full-Stack & AI",
+    period: "Apr 2026 - Present",
+    stack: ["React.js", "FastAPI", "Python", "Docker", "Firebase", "XGBoost", "SHAP"],
+    github: "https://github.com/madhukavirajith/CarbonWiseSL",
+    live: "https://carbon-wise-sl.vercel.app",
+    image: "/projects/carbonwise.png",
+    bullets: [
+      "Built an XGBoost regression model to predict household daily carbon emissions, with SHAP TreeExplainer for per-appliance explainability.",
+      "Applied K-Means clustering to segment consumption patterns and generate personalised energy-reduction recommendations.",
+      "Developed a Solar ROI calculator forecasting installation cost, payback period, and lifetime carbon offset from regional irradiance data.",
+    ],
+  },
+  {
+    id: "sunrise-dental",
+    title: "Sunrise Dental Clinic - Appointment & Patient Management System",
+    category: "Academic",
+    domain: "Enterprise Web App",
+    period: "Jul 2025 - Sep 2025",
+    stack: ["Java 17", "Jakarta EE", "Servlets & JSP", "MySQL", "Maven", "JUnit 5", "GitHub Actions"],
+    github: "https://github.com/madhukavirajith/sunrise-dental-clinic-system",
+    image: "/projects/sunrise.png",
+    bullets: [
+      "Engineered a 3-tier Java EE web application with no third-party frameworks, applying DAO, Singleton, Strategy, and Observer patterns to separate presentation, business logic, and data access.",
+      "Used Strategy for treatment-dependent billing and Observer for a simulated Email/SMS notification system with a full audit trail.",
+      "Secured the app with PBKDF2-salted password hashing and a servlet-filter session check, and exposed a hand-built REST-style JSON endpoint.",
+      "Implemented stored procedures, functions, and triggers (e.g. double-booking prevention); wrote 65 unit, integration, and boundary-value tests with CI via GitHub Actions.",
+    ],
+  },
+  {
+    id: "forgotten-recipes",
+    title: "Forgotten Recipes - MERN-Stack Heritage Culinary Platform",
+    category: "Academic",
+    domain: "Full-Stack Web",
+    period: "Jun 2025 - Aug 2025",
+    stack: ["MongoDB", "Express.js", "React", "Node.js", "Socket.IO"],
+    github: "https://github.com/madhukavirajith/Forgotten-Recipes",
+    live: "https://forgotten-recipes.vercel.app",
+    image: "/projects/forgotten-recipes.png",
+    bullets: [
+      "Led a team of 6 as Product Owner and Scrum Master, running Agile sprint planning and backlog management to deliver a full-stack MERN application.",
+      "Built real-time chat between home cooks and chefs with Socket.IO, and a nutrition visualiser with macro/micro-nutrient radar charts.",
+      "Secured the platform with JWT/Bcrypt authentication, Helmet security headers, and Express rate limiting.",
+    ],
+  },
+  {
+    id: "fitzone",
+    title: "FitZone Fitness Center Portal - Booking & Management System",
+    category: "Academic",
+    domain: "Full-Stack Web",
+    period: "Feb 2025 - Apr 2025",
+    stack: ["PHP", "MySQL", "HTML5", "CSS3", "JavaScript", "Docker"],
+    github: "https://github.com/madhukavirajith/fitzone",
+    live: "https://fitzone-0sp0.onrender.com",
+    image: "/projects/fitzone.png",
+    bullets: [
+      "Built a secure PHP backend with session-based authentication and parameterised SQL queries to prevent SQL injection, backed by a relational MySQL schema.",
+      "Designed separate customer and staff/admin dashboards for bookings, inquiries, and appointment logs.",
+      "Containerised the stack with Docker Compose and deployed it on Render with a cloud-hosted database on Clever Cloud.",
+    ],
+  },
+  {
+    id: "luxevista",
+    title: "Luxe Vista Resort - Android Hotel Management System",
+    category: "Academic",
+    domain: "Mobile Application",
+    period: "Feb 2025 - Apr 2025",
+    stack: ["Java", "Android SDK", "SQLite"],
+    github: "https://github.com/madhukavirajith/LuxeVistaResort",
+    image: "/projects/luxevista.png",
+    bullets: [
+      "Architected the app with MVVM and applied the Singleton pattern to manage a single shared database connection.",
+      "Used RecyclerView with background data processing to keep large room/service lists responsive, and Glide for efficient image loading.",
+      "Built local storage for offline-reliable user profiles and reservation history.",
+    ],
   },
 ];
 
-const skills = {
-  frontend: ["Html", "Css", "JavaScript", "React.js", "Tailwind CSS", "Windows Forms"],
-  backend: ["Node.js", "Express.js", "Java Spring Boot", "C# / .NET 8", "PHP"],
-  database: ["MongoDB", "MySQL", "SQLite"],
-  tools: ["GitHub", "Figma", "Vercel", "Render", "XAMPP", "Visual Studio", "IntelliJ IDEA", "Postman", "Docker", "VS Code", "Android Studio", "PHPMyAdmin"],
+// ─── Skills Grouping based on CV ─────────────────────────────────────────────
+const SKILL_CATEGORIES = {
+  core: [
+    { name: "Java", level: "Advanced", desc: "Java 17, Jakarta EE, OOP, Spring Boot" },
+    { name: "Python", level: "Advanced", desc: "Data Science, XGBoost, FastAPI, Streamlit" },
+    { name: "JavaScript", level: "Advanced", desc: "Modern ES6+, Node.js, Express, Socket.IO" },
+    { name: "React", level: "Advanced", desc: "React.js, Next.js, Hooks, State Architecture" },
+    { name: "SQL", level: "Advanced", desc: "MySQL, SQLite, Stored Procedures, Triggers" },
+    { name: "Data Structures & Algorithms", level: "Proficient", desc: "Trie, DFS, Max-Heap, Levenshtein" },
+    { name: "OOP", level: "Advanced", desc: "DAO, Singleton, Strategy, Observer, MVVM" },
+    { name: "Git/GitHub", level: "Advanced", desc: "CI/CD via GitHub Actions, Branching, PRs" },
+  ],
+  aiml: [
+    { name: "XGBoost", level: "Advanced", desc: "Regression & Telemetry Reconstruction" },
+    { name: "scikit-learn", level: "Proficient", desc: "Imputation Pipelines, Model Evaluation" },
+    { name: "SHAP", level: "Proficient", desc: "TreeExplainer per-feature explainability" },
+    { name: "K-Means Clustering", level: "Proficient", desc: "Consumption pattern segmentation" },
+    { name: "Google Gemini API", level: "Advanced", desc: "Context-aware AI with topic guardrails" },
+    { name: "Spring AI", level: "Proficient", desc: "LLM integration in Java Enterprise" },
+    { name: "Pandas & NumPy", level: "Advanced", desc: "Multi-channel sensor data manipulation" },
+    { name: "Matplotlib", level: "Proficient", desc: "Statistical visualization & radar charts" },
+  ],
+  frameworks: [
+    { name: "Spring Boot", level: "Advanced", desc: "Spring Security, REST APIs, Maven" },
+    { name: "FastAPI", level: "Proficient", desc: "High-performance Python microservices" },
+    { name: "Express.js", level: "Advanced", desc: "Node.js REST backend, middleware, security" },
+    { name: "C# / .NET 8", level: "Proficient", desc: "Desktop systems, Windows Forms" },
+    { name: "Android SDK", level: "Proficient", desc: "Java, MVVM, RecyclerView, Glide" },
+    { name: "Jakarta EE", level: "Proficient", desc: "Servlets, JSP, JSTL, Filter Session Checks" },
+    { name: "Tailwind CSS", level: "Advanced", desc: "Modern responsive design systems" },
+    { name: "Socket.IO", level: "Proficient", desc: "Real-time bidirectional event streaming" },
+  ],
+  cloud: [
+    { name: "Docker", level: "Proficient", desc: "Containerization, Docker Compose" },
+    { name: "Firebase", level: "Proficient", desc: "NoSQL cloud storage & authentication" },
+    { name: "MongoDB", level: "Advanced", desc: "Document modeling, aggregation pipelines" },
+    { name: "Streamlit Cloud", level: "Advanced", desc: "Interactive ML dashboard deployment" },
+    { name: "Render & Clever Cloud", level: "Proficient", desc: "Cloud app hosting & MySQL hosting" },
+    { name: "Vercel", level: "Advanced", desc: "Next.js & React frontend deployments" },
+    { name: "Maven & JUnit 5", level: "Advanced", desc: "65+ unit, integration, boundary tests" },
+    { name: "GitHub Actions", level: "Proficient", desc: "Automated test runs & CI pipelines" },
+  ],
 };
 
-const experiences = [
+// ─── Professional Experience & Education from CV ──────────────────────────────
+const PROFESSIONAL_EXPERIENCES = [
   {
-    title: "BSc (Hons) Computer Software Engineering",
-    org: "Cardiff Metropolitan University",
-    period: "Nov 2025 — Present",
-    desc: "Focusing on software development methodologies, database administration, system design, and advanced software engineering pipelines.",
+    role: "Data Annotator",
+    company: "Innodata Inc.",
+    period: "Jan 2026 - Jun 2026",
+    description:
+      "Labelled data to strict quality guidelines for a Superintelligence Lab annotation project supporting large-scale AI model training, maintaining high accuracy under time-sensitive targets.",
+    badge: "AI Model Training",
   },
   {
-    title: "Higher Diploma in Computing and Software Engineering",
-    org: "Cardiff Metropolitan University",
-    period: "Jan 2024 — Nov 2025",
-    desc: "Successfully graduated with Merit. Focused on fundamental web programming, structural programming (Java), system analysis, and team project management.",
+    role: "Data Annotator",
+    company: "IFG BPO (Pvt.) Ltd.",
+    period: "Oct 2025 - Mar 2026",
+    description:
+      "Processed and analysed urban data for the Greehill project, collaborating with a remote team to meet deadlines with consistent quality.",
+    badge: "Urban Data Processing",
   },
 ];
 
-const navItems = ["Home", "About", "Skills", "Projects", "Timeline", "Terminal", "Contact"];
+const EDUCATION_ITEMS = [
+  {
+    degree: "BSc (Hons) Computer Software Engineering",
+    institution: "Cardiff Metropolitan University",
+    period: "Nov 2025 - Present",
+    details:
+      "Key modules: Advanced Programming, Analytics and Business Intelligence, Computational Intelligence, Professional and Ethical Issues in IT, Development Project.",
+    badge: "In Progress",
+  },
+  {
+    degree: "Higher Diploma, Computing & Software Engineering",
+    institution: "Cardiff Metropolitan University",
+    period: "Jan 2024 - Nov 2025",
+    grade: "Grade: Merit",
+    details:
+      "Key modules: Data Structures & Algorithms, OOP, Database Design & Development, Web & Mobile Application Development, Service-Oriented Computing, System Analysis and Design, Computer Networks, Project Management.",
+    badge: "Merit Distinction",
+  },
+];
 
-// ─── Shared Components ────────────────────────────────────────────────────────
-function SectionTitle({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }) {
-  return (
-    <div className="max-w-3xl mb-12">
-      <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-brand-cyan dark:border-brand-cyan/30 dark:bg-brand-cyan/10">
-        <Sparkles className="h-3.5 w-3.5 animate-pulse" />
-        {eyebrow}
-      </p>
-      <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">{title}</h2>
-      <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">{description}</p>
-    </div>
-  );
-}
+const CERTIFICATIONS = [
+  {
+    name: "Google AI Essentials Specialization",
+    issuer: "Google",
+    date: "Dec 2025",
+    credentialId: "CRVK7DM1HRYO",
+    details: "Foundational AI principles, generative AI tools, prompt design strategies, and responsible AI practices.",
+  },
+  {
+    name: "Java Programming for Beginners",
+    issuer: "IBM",
+    date: "Sep 2025",
+    credentialId: "QKQ28D53HMVA",
+    details: "Core Java programming syntax, OOP class hierarchies, interface implementations, and algorithmic debugging.",
+  },
+];
 
-// Tech Skill badge with color brand indicator
-function SkillChip({ name }: { name: string }) {
-  const hasIcon = !!SKILL_ICON_MAP[name];
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 px-3.5 py-1.5 text-xs font-medium text-slate-700 dark:text-slate-200 backdrop-blur-sm shadow-sm transition-all duration-300 hover:border-brand-cyan/40 hover:scale-[1.05]">
-      {hasIcon && <TechIcon name={name} size={14} />}
-      {name}
-    </span>
-  );
-}
+const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Projects", href: "#projects" },
+  { name: "Experience", href: "#experience" },
+  { name: "Skills", href: "#skills" },
+  { name: "Certifications", href: "#certifications" },
+  { name: "Terminal", href: "#terminal" },
+  { name: "Contact", href: "#contact" },
+];
 
-// ─── Main Component ───────────────────────────────────────────────────────────
 export default function MadhukaPortfolio() {
   const [darkMode, setDarkMode] = useState(true);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState<"All" | "Personal" | "Academic" | "AI/ML">("All");
   const [scrollProgress, setScrollProgress] = useState(0);
 
-  // Typing Effect
+  // Rotating roles typing effect
   const [titleIndex, setTitleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [displayText, setDisplayText] = useState("");
-  const titles = useMemo(() => ["Software Engineer", "Full-Stack Developer", "Creative UI/UX Designer"], []);
+  const titles = useMemo(
+    () => [
+      "Software Engineering Undergraduate",
+      "Full-Stack & AI/ML Developer",
+      "Java & Spring Boot Engineer",
+      "Python & Machine Learning Specialist",
+      "C# & .NET Desktop Developer",
+    ],
+    []
+  );
 
   // Skill Tabs
-  const [activeSkillTab, setActiveSkillTab] = useState<"frontend" | "backend" | "database" | "tools">("frontend");
+  const [activeSkillCategory, setActiveSkillCategory] = useState<keyof typeof SKILL_CATEGORIES>("core");
 
   // Terminal State
   const [terminalHistory, setTerminalHistory] = useState<string[]>([
-    "Madhuka Portfolio OS v1.2.0 (running Next.js + Turbopack)",
-    "Type 'help' to view all available commands.",
-    ""
+    "Madhuka Virajith Portfolio OS [Version 2.0.0]",
+    "Software Engineering Undergraduate • Full-Stack & AI/ML Development",
+    "Type 'help' to inspect credentials, projects, or background.",
+    "",
   ]);
   const [terminalInput, setTerminalInput] = useState("");
   const terminalEndRef = useRef<HTMLDivElement>(null);
   const hasMounted = useRef(false);
 
-  // Chatbot State
+  // Resume Chatbot State
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<Array<{ sender: "bot" | "user"; text: string }>>([
-    { sender: "bot", text: "Hi! I am Madhuka's AI assistant. Ask me anything about his skills, education, or portfolio projects!" }
+    {
+      sender: "bot",
+      text: "Hello! I am Madhuka Virajith's CV assistant. I can answer any questions about his 8 software projects, AI/ML models, technical skills, Innodata experience, or Cardiff Met education. How can I help?",
+    },
   ]);
   const [chatTyping, setChatTyping] = useState(false);
   const chatbotMessagesEndRef = useRef<HTMLDivElement>(null);
@@ -518,8 +609,8 @@ export default function MadhukaPortfolio() {
   const [formEmail, setFormEmail] = useState("");
   const [formMessage, setFormMessage] = useState("");
   const [formStatus, setFormStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [copiedEmail, setCopiedEmail] = useState(false);
 
-  // Synchronize system colors and manual state
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -528,7 +619,6 @@ export default function MadhukaPortfolio() {
     }
   }, [darkMode]);
 
-  // Scroll Progress Calculation
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
@@ -549,16 +639,16 @@ export default function MadhukaPortfolio() {
       timer = setTimeout(() => {
         setDisplayText(currentTitle.substring(0, charIndex - 1));
         setCharIndex((prev) => prev - 1);
-      }, 40);
+      }, 35);
     } else {
       timer = setTimeout(() => {
         setDisplayText(currentTitle.substring(0, charIndex + 1));
         setCharIndex((prev) => prev + 1);
-      }, 80);
+      }, 70);
     }
 
     if (!isDeleting && charIndex === currentTitle.length) {
-      timer = setTimeout(() => setIsDeleting(true), 2500);
+      timer = setTimeout(() => setIsDeleting(true), 2400);
     } else if (isDeleting && charIndex === 0) {
       setIsDeleting(false);
       setTitleIndex((prev) => (prev + 1) % titles.length);
@@ -567,7 +657,6 @@ export default function MadhukaPortfolio() {
     return () => clearTimeout(timer);
   }, [charIndex, isDeleting, titleIndex, titles]);
 
-  // Auto-scroll terminal and chatbot to bottom (skip initial render)
   useEffect(() => {
     if (!hasMounted.current) {
       hasMounted.current = true;
@@ -581,13 +670,14 @@ export default function MadhukaPortfolio() {
     chatbotMessagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [chatMessages, chatTyping]);
 
-  // Filtered Projects list
   const filteredProjects = useMemo(() => {
-    if (activeFilter === "All") return projects;
-    return projects.filter((project) => project.category === activeFilter);
+    if (activeFilter === "All") return ALL_PROJECTS;
+    if (activeFilter === "Personal") return ALL_PROJECTS.filter((p) => p.category === "Personal");
+    if (activeFilter === "Academic") return ALL_PROJECTS.filter((p) => p.category === "Academic");
+    if (activeFilter === "AI/ML") return ALL_PROJECTS.filter((p) => p.domain.includes("AI") || p.domain.includes("Machine Learning"));
+    return ALL_PROJECTS;
   }, [activeFilter]);
 
-  // Contact form submission handler
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formName || !formEmail || !formMessage) return;
@@ -598,58 +688,112 @@ export default function MadhukaPortfolio() {
       setFormName("");
       setFormEmail("");
       setFormMessage("");
-      setTimeout(() => setFormStatus("idle"), 5000);
-    }, 1500);
+      setTimeout(() => setFormStatus("idle"), 6000);
+    }, 1200);
   };
 
-  // Terminal commands interpreter
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText("virajith404@gmail.com");
+    setCopiedEmail(true);
+    setTimeout(() => setCopiedEmail(false), 2500);
+  };
+
+  // Terminal commands interpreter matching CV
   const handleTerminalSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const cmd = terminalInput.trim().toLowerCase();
     if (!cmd) return;
 
-    const newHistory = [...terminalHistory, `guest@madhuka-portfolio:~$ ${terminalInput}`];
+    const newHistory = [...terminalHistory, `guest@madhukavirajith:~$ ${terminalInput}`];
 
     switch (cmd) {
       case "help":
         newHistory.push(
           "Available Commands:",
-          "  about      - Background summary of Madhuka Virajith",
-          "  skills     - List technical skill catalog",
-          "  projects   - Show portfolio project descriptions",
-          "  contact    - Retrieve contact credentials & links",
-          "  clear      - Clear terminal screen log",
-          "  sudo coffee- Dispense compiled caffeine energy boost"
+          "  about          - Overview and summary from Madhuka's CV",
+          "  skills         - View technical skills and proficiencies",
+          "  projects       - List all 8 full-stack, AI/ML, desktop & mobile applications",
+          "  experience     - Display professional experience (Innodata & IFG BPO)",
+          "  education      - View Cardiff Metropolitan University degrees and Merit grade",
+          "  certifications - View Google AI & IBM Java certifications",
+          "  contact        - Output phone, email, location & social links",
+          "  clear          - Clear terminal output",
+          "  sudo coffee    - Compile developer espresso boost"
         );
         break;
       case "about":
         newHistory.push(
-          "Madhuka Virajith is a BSc (Hons) Computer Software Engineering undergraduate",
-          "at Cardiff Metropolitan University. Passionate about beautiful MERN stacks,",
-          "robust C# desktop APIs, and modern frontends with dynamic micro-interactions."
+          "MADHUKA VIRAJITH",
+          "Software Engineering Undergraduate | Full-Stack & AI/ML Development",
+          "Colombo, Sri Lanka | virajith404@gmail.com | +94 70 241 2807",
+          "",
+          "SUMMARY:",
+          "Software Engineering undergraduate at Cardiff Metropolitan University (BSc Hons in progress;",
+          "Higher Diploma completed with Merit) with hands-on experience building eight full-stack, web,",
+          "AI/ML, desktop, and mobile applications, applying knowledge to real performance problems.",
+          "Seeking a Software Engineering internship to contribute to the industry."
         );
         break;
       case "skills":
         newHistory.push(
-          "Frontend Tools : HTML, CSS, JavaScript, React.js, Tailwind CSS",
-          "Backend Engines : Node.js, Express.js, Java Spring Boot, C# / .NET 8, PHP",
-          "Database Systems: MongoDB, MySQL, SQLite",
-          "Utilities       : VS Code, Git, Docker, Postman, Vercel, Figma"
+          "TECHNICAL SKILLS (From CV):",
+          "• Core Languages: Java (Java 17, Jakarta EE), Python, JavaScript, C#, PHP, SQL, HTML5, CSS3",
+          "• AI & Machine Learning: XGBoost, scikit-learn, SHAP, K-Means Clustering, Google Gemini API, Spring AI",
+          "• Frameworks & Web: Spring Boot, Spring Security, React.js, FastAPI, Node.js, Express.js, .NET 8, Android SDK, Socket.IO",
+          "• Databases: MySQL, SQLite, MongoDB, Firebase",
+          "• Tools & DevOps: Git/GitHub, GitHub Actions, Docker, Docker Compose, Maven, JUnit 5, Postman, Streamlit Cloud"
         );
         break;
       case "projects":
         newHistory.push(
-          "1. Forgotten Recipes - Sri Lankan ancient culinary database platform (MERN Stack)",
-          "2. Fitzone Fitness     - Sports center billing & management dashboard (PHP/MySQL)",
-          "3. Luxevista Resort    - Mobile room booking program (Java/MySQL)",
-          "4. Leave Tracker Pro   - HR desktop leave tracker widget (C# / .NET 8 / SQLite)"
+          "ALL 8 FEATURED PROJECTS:",
+          "1. Tutor Finder - AI Powered Tutor Booking & Recommendation Platform (Spring Boot, Gemini API, React)",
+          "2. LeaveTrackerPro - Desktop Employee Leave Management System (C#, .NET 8, WinForms, SQLite)",
+          "3. MEDA Mars Atmospheric Pressure Predictor - NASA Perseverance Sensor Recovery (Python, Streamlit, XGBoost)",
+          "4. CarbonWise SL - AI Powered Household Carbon Prediction & Reduction (React, FastAPI, XGBoost, SHAP)",
+          "5. Sunrise Dental Clinic - Appointment & Patient Management (Java 17, Jakarta EE, 3-tier, 65 Tests)",
+          "6. Forgotten Recipes - MERN-Stack Heritage Culinary Platform (Scrum Master, Socket.IO, Bcrypt, Helmet)",
+          "7. FitZone Fitness Center Portal - Booking & Management System (PHP, MySQL, Docker, Render)",
+          "8. Luxe Vista Resort - Android Hotel Management System (Java, Android SDK, MVVM, SQLite)"
+        );
+        break;
+      case "experience":
+        newHistory.push(
+          "PROFESSIONAL EXPERIENCE:",
+          "• Data Annotator - Innodata Inc. (Jan 2026 - Jun 2026)",
+          "  Labelled data to strict quality guidelines for a Superintelligence Lab annotation project supporting large-scale AI model training, maintaining high accuracy under time-sensitive targets.",
+          "",
+          "• Data Annotator - IFG BPO (Pvt.) Ltd. (Oct 2025 - Mar 2026)",
+          "  Processed and analysed urban data for the Greehill project, collaborating with a remote team to meet deadlines with consistent quality."
+        );
+        break;
+      case "education":
+        newHistory.push(
+          "EDUCATION:",
+          "• BSc (Hons) Computer Software Engineering - Cardiff Metropolitan University (Nov 2025 - Present)",
+          "  Key modules: Advanced Programming, Analytics and Business Intelligence, Computational Intelligence, Professional and Ethical Issues in IT, Development Project",
+          "",
+          "• Higher Diploma, Computing & Software Engineering - Cardiff Metropolitan University (Jan 2024 - Nov 2025)",
+          "  Grade: Merit",
+          "  Key modules: Data Structures & Algorithms, OOP, Database Design & Development, Web & Mobile App Development, Service-Oriented Computing, System Analysis & Design, Networks, Project Management"
+        );
+        break;
+      case "certifications":
+        newHistory.push(
+          "CERTIFICATIONS:",
+          "• Google AI Essentials Specialization - Google, Dec 2025 (Credential ID: CRVK7DM1HRYO)",
+          "• Java Programming for Beginners - IBM, Sep 2025 (Credential ID: QKQ28D53HMVA)"
         );
         break;
       case "contact":
         newHistory.push(
-          "Email    : virajith404@gmail.com",
-          "LinkedIn : linkedin.com/in/madhuka-virajith-599ba42a4/",
-          "GitHub   : github.com/madhukavirajith"
+          "CONTACT DETAILS:",
+          "• Email    : virajith404@gmail.com",
+          "• Phone    : +94 70 241 2807",
+          "• Location : Colombo, Sri Lanka",
+          "• LinkedIn : linkedin.com/in/madhukavirajith",
+          "• GitHub   : github.com/madhukavirajith",
+          "• Website  : madhukavirajith.com"
         );
         break;
       case "clear":
@@ -660,11 +804,11 @@ export default function MadhukaPortfolio() {
         newHistory.push(
           "☕ sudo: Compilation success!",
           "  [========================================] 100%",
-          "  Dispensing 1 cup of hot double-espresso to developer guest! Happy coding!"
+          "  Dispensing double-shot espresso for guest reviewer. Enjoy reviewing Madhuka's CV!"
         );
         break;
       default:
-        newHistory.push(`OS: command not found: '${cmd}'. Type 'help' for options.`);
+        newHistory.push(`OS: command not found: '${cmd}'. Type 'help' for available commands.`);
     }
 
     newHistory.push("");
@@ -674,7 +818,6 @@ export default function MadhukaPortfolio() {
 
   // Chatbot response generator
   const triggerChatbotReply = (questionText: string, actionType: string) => {
-    // Add user question
     setChatMessages((prev) => [...prev, { sender: "user", text: questionText }]);
     setChatTyping(true);
 
@@ -682,69 +825,87 @@ export default function MadhukaPortfolio() {
       setChatTyping(false);
       let answer = "";
       if (actionType === "internship") {
-        answer = "Yes! Madhuka is actively seeking software engineering internships and graduate opportunities. He is ready to join a team immediately as a full-stack, frontend, or backend developer.";
-      } else if (actionType === "stack") {
-        answer = "His core tech stack includes React, Tailwind CSS, Node.js, Express.js, Java Spring Boot, and C# / .NET 8. He uses MySQL and MongoDB databases daily.";
-      } else if (actionType === "recipes") {
-        answer = "Forgotten Recipes is Madhuka's proudest academic project! It is a MERN stack application built to preserve Sri Lankan culinary heritage using modern interactive health charts and storytelling.";
+        answer =
+          "Yes! Madhuka is actively seeking a Software Engineering Internship to contribute to the industry. He is an undergraduate at Cardiff Metropolitan University with hands-on experience delivering eight full-stack, AI/ML, web, desktop, and mobile applications.";
+      } else if (actionType === "aiml") {
+        answer =
+          "Madhuka has engineered impressive AI/ML solutions: (1) NASA Mars Atmospheric Pressure Predictor reconstructing Martian pressure from 23 telemetry channels via XGBoost; (2) CarbonWise SL with XGBoost, SHAP explainability, and K-Means clustering; (3) Tutor Finder integrating Google Gemini AI with topic guardrails; and (4) Professional AI annotation experience at Innodata Inc. supporting large-scale model training.";
+      } else if (actionType === "projects") {
+        answer =
+          "Madhuka has built 8 complete applications: 2 personal projects (Tutor Finder & LeaveTrackerPro) and 6 academic projects (NASA Mars Pressure Predictor, CarbonWise SL, Sunrise Dental Clinic, Forgotten Recipes, FitZone, and Luxe Vista Resort). Check out the Projects section for full codebases and live demos!";
+      } else if (actionType === "education") {
+        answer =
+          "Madhuka is reading for his BSc (Hons) in Computer Software Engineering at Cardiff Metropolitan University. He previously completed his Higher Diploma in Computing & Software Engineering with a Merit grade. He also holds Google AI Essentials and IBM Java certifications.";
       } else if (actionType === "contact") {
-        answer = "You can reach out to Madhuka directly via email at virajith404@gmail.com, or check out his links below to connect on LinkedIn or GitHub!";
+        answer =
+          "You can contact Madhuka directly via email at virajith404@gmail.com, call +94 70 241 2807, or connect on LinkedIn (linkedin.com/in/madhukavirajith) and GitHub (github.com/madhukavirajith). He is based in Colombo, Sri Lanka.";
       } else {
-        answer = "I'm always ready to assist! Ask about skills, internships, or projects using the options below.";
+        answer = "I'm ready to help! You can ask about Madhuka's 8 projects, tech stack, experience, or internship availability.";
       }
 
       setChatMessages((prev) => [...prev, { sender: "bot", text: answer }]);
-    }, 800);
+    }, 700);
   };
 
   const currentThemeClasses = darkMode
     ? {
-      bg: "bg-[#030712]",
-      panel: "bg-white/5 border-white/10",
-      card: "bg-white/5 border-white/10 hover:border-brand-cyan/40",
-      text: "text-slate-100",
-      sub: "text-slate-300",
-      formInput: "bg-white/5 border-white/10 text-white focus:border-brand-cyan/50",
-    }
+        bg: "bg-[#030712]",
+        panel: "bg-white/[0.04] border-white/10",
+        card: "bg-white/[0.03] border-white/10 hover:border-brand-cyan/40",
+        text: "text-slate-100",
+        sub: "text-slate-300",
+        formInput: "bg-white/5 border-white/10 text-white focus:border-brand-cyan/50",
+      }
     : {
-      bg: "bg-slate-50",
-      panel: "bg-white/85 border-slate-200 shadow-lg",
-      card: "bg-white border-slate-200 shadow-md hover:shadow-xl hover:border-brand-violet/40",
-      text: "text-slate-900",
-      sub: "text-slate-600",
-      formInput: "bg-slate-50 border-slate-200 text-slate-950 focus:border-brand-violet/50",
-    };
+        bg: "bg-slate-50",
+        panel: "bg-white/90 border-slate-200 shadow-lg",
+        card: "bg-white border-slate-200 shadow-md hover:shadow-xl hover:border-brand-violet/40",
+        text: "text-slate-900",
+        sub: "text-slate-600",
+        formInput: "bg-slate-50 border-slate-200 text-slate-950 focus:border-brand-violet/50",
+      };
 
   return (
     <div className={`${currentThemeClasses.bg} min-h-screen relative font-sans transition-colors duration-300 grid-bg-overlay`}>
-      {/* Scroll Progress Indicator Line */}
+      {/* Scroll Progress Bar */}
       <div
         className="fixed top-0 left-0 h-1 z-50 bg-gradient-to-r from-brand-cyan via-brand-violet to-brand-pink transition-all duration-100"
         style={{ width: `${scrollProgress}%` }}
       />
 
-      {/* Decorative Blur Background Blobs */}
+      {/* Decorative Atmosphere Glows */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden -z-20">
-        <div className="absolute left-[5%] top-[10%] w-[450px] h-[450px] rounded-full bg-brand-cyan/15 dark:bg-brand-cyan/10 blur-[130px] animate-pulse-glow" />
-        <div className="absolute right-[5%] top-[30%] w-[500px] h-[500px] rounded-full bg-brand-violet/15 dark:bg-brand-violet/10 blur-[140px] animate-pulse-glow" style={{ animationDelay: "-3s" }} />
-        <div className="absolute left-[25%] bottom-[5%] w-[400px] h-[400px] rounded-full bg-brand-pink/15 dark:bg-brand-pink/10 blur-[120px] animate-pulse-glow" style={{ animationDelay: "-6s" }} />
+        <div className="absolute left-[3%] top-[8%] w-[500px] h-[500px] rounded-full bg-brand-cyan/15 dark:bg-brand-cyan/10 blur-[140px] animate-pulse-glow" />
+        <div
+          className="absolute right-[4%] top-[32%] w-[550px] h-[550px] rounded-full bg-brand-violet/15 dark:bg-brand-violet/10 blur-[150px] animate-pulse-glow"
+          style={{ animationDelay: "-3s" }}
+        />
+        <div
+          className="absolute left-[20%] bottom-[8%] w-[450px] h-[450px] rounded-full bg-brand-pink/15 dark:bg-brand-pink/10 blur-[130px] animate-pulse-glow"
+          style={{ animationDelay: "-6s" }}
+        />
       </div>
 
-      {/* ── Header & Navigation ────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-40 w-full border-b border-slate-200/50 dark:border-white/10 bg-slate-50/70 dark:bg-[#030712]/60 backdrop-blur-xl transition-colors">
+      {/* ── Header & Navigation ────────────────────────────────────────────── */}
+      <header className="sticky top-0 z-40 w-full border-b border-slate-200/60 dark:border-white/10 bg-slate-50/80 dark:bg-[#030712]/75 backdrop-blur-xl transition-colors">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-          <a href="#home" className="text-xl font-bold tracking-tight text-slate-900 dark:text-white font-display">
-            Madhuka<span className="text-brand-cyan animate-pulse">.</span>
+          <a href="#home" className="flex items-center gap-2 group">
+            <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white font-display">
+              Madhuka Virajith
+            </span>
+            <span className="rounded-full bg-brand-cyan/10 border border-brand-cyan/20 px-2 py-0.5 text-3xs font-semibold text-brand-cyan uppercase tracking-wider hidden sm:inline-block">
+              SE Undergrad
+            </span>
           </a>
 
-          <nav className="hidden items-center gap-8 md:flex">
+          <nav className="hidden items-center gap-7 md:flex">
             {navItems.map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-cyan dark:hover:text-brand-cyan transition-colors"
+                key={item.name}
+                href={item.href}
+                className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-brand-cyan dark:hover:text-brand-cyan transition-colors uppercase tracking-wider"
               >
-                {item}
+                {item.name}
               </a>
             ))}
           </nav>
@@ -768,24 +929,24 @@ export default function MadhukaPortfolio() {
           </div>
         </div>
 
-        {/* Mobile Nav dropdown */}
+        {/* Mobile Nav */}
         <AnimatePresence>
           {menuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="border-t border-slate-200 dark:border-white/10 bg-slate-100/90 dark:bg-[#030712]/90 backdrop-blur-md px-6 py-4 md:hidden"
+              className="border-t border-slate-200 dark:border-white/10 bg-slate-100/95 dark:bg-[#030712]/95 backdrop-blur-md px-6 py-4 md:hidden"
             >
-              <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-3.5">
                 {navItems.map((item) => (
                   <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
+                    key={item.name}
+                    href={item.href}
                     onClick={() => setMenuOpen(false)}
-                    className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-brand-cyan transition-colors"
+                    className="text-sm font-semibold text-slate-700 dark:text-slate-200 hover:text-brand-cyan transition-colors"
                   >
-                    {item}
+                    {item.name}
                   </a>
                 ))}
               </div>
@@ -794,62 +955,86 @@ export default function MadhukaPortfolio() {
         </AnimatePresence>
       </header>
 
-      {/* ── Main Layout ─────────────────────────────────────────────────────────── */}
+      {/* ── Main Content Container ─────────────────────────────────────────── */}
       <main className="mx-auto max-w-7xl px-6 lg:px-8">
 
         {/* ── HERO SECTION ── */}
-        <section id="home" className="py-20 lg:py-28 relative">
-          <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+        <section id="home" className="py-16 lg:py-24 relative">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
             <motion.div
-              initial={{ opacity: 0, y: 35 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.7 }}
             >
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-cyan/20 bg-brand-cyan/5 dark:bg-brand-cyan/10 px-4 py-2 text-xs font-semibold text-brand-cyan uppercase tracking-wider">
-                <Sparkles className="h-4 w-4 animate-spin" style={{ animationDuration: "3s" }} />
-                Open for Internships & Grad Roles
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-medium text-emerald-600 dark:text-emerald-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                Available for Software Engineering Internships
               </div>
 
-              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl font-display leading-[1.1]">
-                Hi, I&apos;m{" "}
-                <span className="block mt-2 text-gradient">
-                  Madhuka Virajith
-                </span>
+              <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white sm:text-5xl lg:text-6xl font-display leading-[1.08]">
+                MADHUKA <span className="text-gradient">VIRAJITH</span>
               </h1>
 
-              {/* Dynamic Animated Subtitle typing */}
-              <div className="mt-4 h-10 flex items-center">
-                <span className="text-lg sm:text-xl font-medium text-slate-600 dark:text-slate-300 font-mono">
+              {/* Dynamic Subtitle typing matching CV */}
+              <div className="mt-3.5 min-h-[32px] flex items-center">
+                <span className="text-base sm:text-lg md:text-xl font-medium text-slate-700 dark:text-slate-200 font-mono">
                   &gt; {displayText}
                 </span>
-                <span className="w-2 h-6 bg-brand-cyan ml-1.5 animate-cursor-blink" />
+                <span className="w-2 h-5 bg-brand-cyan ml-1.5 animate-cursor-blink" />
               </div>
 
-              <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-slate-600 dark:text-slate-300">
-                Final-year Software Engineering Undergraduate constructing highly optimized systems, aesthetic user interfaces, and custom full-stack solutions. Dedicated to coding with design integrity and functional simplicity.
+              {/* Exact Location & Contact Strip from CV */}
+              <div className="mt-4 flex flex-wrap items-center gap-y-2 gap-x-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300">
+                <span className="inline-flex items-center gap-1.5">
+                  <MapPin className="h-4 w-4 text-brand-cyan" /> Colombo, Sri Lanka
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Mail className="h-4 w-4 text-brand-cyan" /> virajith404@gmail.com
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Phone className="h-4 w-4 text-brand-cyan" /> +94 70 241 2807
+                </span>
+              </div>
+
+              {/* Exact CV Summary statement */}
+              <p className="mt-6 text-base sm:text-lg leading-relaxed text-slate-650 dark:text-slate-300">
+                Software Engineering undergraduate at <strong className="text-slate-900 dark:text-white">Cardiff Metropolitan University</strong> (BSc Hons in progress; Higher Diploma completed with <span className="text-brand-cyan font-semibold">Merit</span>) with hands-on experience building <strong className="text-slate-900 dark:text-white">eight full-stack, web, AI/ML, desktop, and mobile applications</strong>, applying knowledge to real performance problems. Seeking a Software Engineering internship to contribute to the industry.
               </p>
 
-              {/* Tag Badges */}
-              <div className="mt-8 flex flex-wrap gap-2.5">
-                {["MERN Stack Developer", "C# / .NET Specialist", "UI/UX Centered Developer", "Java Spring Boot Programmer"].map((tag) => (
-                  <span key={tag} className="rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100/50 dark:bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 backdrop-blur-sm shadow-sm">
-                    {tag}
+              {/* Key Technical Skill Chips from CV */}
+              <div className="mt-7 flex flex-wrap gap-2">
+                {[
+                  "Java",
+                  "Python",
+                  "JavaScript",
+                  "React",
+                  "SQL",
+                  "Data Structures & Algorithms",
+                  "OOP",
+                  "Git/GitHub",
+                ].map((skill) => (
+                  <span
+                    key={skill}
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-100/70 dark:bg-white/5 px-3 py-1.5 text-xs font-semibold text-slate-700 dark:text-slate-200 backdrop-blur-sm shadow-sm"
+                  >
+                    <TechIcon name={skill} size={13} />
+                    {skill}
                   </span>
                 ))}
               </div>
 
               {/* Action Buttons */}
-              <div className="mt-10 flex flex-wrap gap-4">
+              <div className="mt-9 flex flex-wrap gap-4">
                 <a
                   href="#projects"
-                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand-cyan to-brand-violet px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.03] cursor-pointer"
+                  className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-brand-cyan via-brand-violet to-brand-pink px-6 py-3.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02] cursor-pointer"
                 >
-                  View Projects <ChevronRight className="h-4.5 w-4.5" />
+                  Explore 8 Projects <ChevronRight className="h-4 w-4" />
                 </a>
 
                 <a
                   href="#contact"
-                  className={`inline-flex items-center gap-2 rounded-2xl border ${currentThemeClasses.panel} px-6 py-3.5 text-sm font-semibold ${currentThemeClasses.text} transition hover:scale-[1.03] hover:bg-slate-200/50 dark:hover:bg-white/10 cursor-pointer`}
+                  className={`inline-flex items-center gap-2 rounded-2xl border ${currentThemeClasses.panel} px-6 py-3.5 text-sm font-semibold ${currentThemeClasses.text} transition hover:scale-[1.02] hover:bg-slate-200/50 dark:hover:bg-white/10 cursor-pointer`}
                 >
                   Contact Me
                 </a>
@@ -859,16 +1044,17 @@ export default function MadhukaPortfolio() {
                   download
                   className={`inline-flex items-center gap-2 rounded-2xl border ${currentThemeClasses.panel} px-6 py-3.5 text-sm font-semibold ${currentThemeClasses.text} transition hover:bg-slate-200/50 dark:hover:bg-white/10 cursor-pointer`}
                 >
-                  <Download className="h-4.5 w-4.5" /> Download CV
+                  <Download className="h-4 w-4" /> Download CV
                 </a>
               </div>
 
-              {/* Social Channels */}
-              <div className="mt-10 flex items-center gap-3.5">
+              {/* Social Channels with exact CV URLs */}
+              <div className="mt-8 flex items-center gap-3">
                 {[
-                  { href: "https://github.com/madhukavirajith", icon: <Github className="h-5.5 w-5.5" />, label: "GitHub" },
-                  { href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5.5 w-5.5" />, label: "LinkedIn" },
-                  { href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5.5 w-5.5" />, label: "Email" },
+                  { href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" />, label: "GitHub" },
+                  { href: "https://linkedin.com/in/madhukavirajith", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
+                  { href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" />, label: "Email" },
+                  { href: "tel:+94702412807", icon: <Phone className="h-5 w-5" />, label: "Phone" },
                 ].map((s, i) => (
                   <a
                     key={i}
@@ -876,7 +1062,7 @@ export default function MadhukaPortfolio() {
                     target="_blank"
                     rel="noreferrer"
                     title={s.label}
-                    className={`rounded-2xl border ${currentThemeClasses.panel} p-3.5 ${currentThemeClasses.text} transition hover:scale-[1.08] hover:bg-slate-200/50 dark:hover:bg-white/10`}
+                    className={`rounded-2xl border ${currentThemeClasses.panel} p-3 ${currentThemeClasses.text} transition hover:scale-[1.08] hover:bg-slate-200/50 dark:hover:bg-white/10`}
                   >
                     {s.icon}
                   </a>
@@ -884,311 +1070,543 @@ export default function MadhukaPortfolio() {
               </div>
             </motion.div>
 
-            {/* Profile Snapshot Visual Ring */}
+            {/* Profile Snapshot Visual */}
             <motion.div
-              initial={{ opacity: 0, scale: 0.92 }}
+              initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative flex justify-center lg:justify-end"
             >
-              {/* Outer Glowing spinning halo ring */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-dashed border-brand-cyan/40 dark:border-brand-cyan/60 animate-spin" style={{ animationDuration: "25s" }} />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-88 h-88 rounded-full border border-dotted border-brand-violet/40 dark:border-brand-violet/50 animate-spin" style={{ animationDuration: "40s", animationDirection: "reverse" }} />
-              <div className={`relative overflow-hidden rounded-[32px] border ${currentThemeClasses.panel} p-3 shadow-2xl backdrop-blur-xl w-full max-w-[340px] bg-slate-900/10 dark:bg-white/5`}>
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full border border-dashed border-brand-cyan/40 dark:border-brand-cyan/60 animate-spin"
+                style={{ animationDuration: "25s" }}
+              />
+              <div
+                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-88 h-88 rounded-full border border-dotted border-brand-violet/40 dark:border-brand-violet/50 animate-spin"
+                style={{ animationDuration: "40s", animationDirection: "reverse" }}
+              />
+              <div
+                className={`relative overflow-hidden rounded-[32px] border ${currentThemeClasses.panel} p-3.5 shadow-2xl backdrop-blur-xl w-full max-w-[340px] bg-slate-900/10 dark:bg-white/5`}
+              >
                 <div className="relative aspect-[4/5] w-full overflow-hidden rounded-[24px]">
                   <img
                     src="/portrait.png"
                     alt="Madhuka Virajith Portrait"
-                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.04]"
+                    className="h-full w-full object-cover transition-transform duration-500 hover:scale-[1.03]"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute bottom-4 left-4 right-4">
+                    <p className="text-white font-bold text-sm">Madhuka Virajith</p>
+                    <p className="text-brand-cyan text-xs font-mono">BSc (Hons) SE • Cardiff Met</p>
+                  </div>
                 </div>
               </div>
             </motion.div>
           </div>
         </section>
 
-        {/* ── ABOUT ME SECTION ── */}
-        <section id="about" className="py-24 border-t border-slate-200 dark:border-white/10">
+        {/* ── ABOUT ME / SUMMARY SECTION ── */}
+        <section id="about" className="py-20 border-t border-slate-200 dark:border-white/10">
           <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] mb-12 items-center">
-            <SectionTitle
-              eyebrow="Introduction"
-              title="Polished code built with structural design patterns"
-              description="I am Madhuka Virajith, a Cardiff Metropolitan University software undergraduate based in Sri Lanka. I love crafting clean, maintainable code architectures and pairing them with high-fidelity, premium user interfaces that interact fluidly with backends."
-            />
-            {/* Interactive 3D Canvas Particle Globe relocated from Hero */}
-            <div className="flex justify-center items-center h-52 border border-slate-200/50 dark:border-white/5 rounded-[32px] bg-slate-900/5 dark:bg-white/5 p-4 relative backdrop-blur-xl shadow-inner">
+            <div>
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan" />
+                ABOUT & BACKGROUND
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+                Building reliable software from core algorithms to production frontends
+              </h2>
+              <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300 sm:text-base">
+                Software Engineering undergraduate at Cardiff Metropolitan University with practical experience developing eight full-stack web, machine learning, desktop, and mobile systems. Dedicated to writing clean, maintainable architectures with grounded data structures and dependable APIs.
+              </p>
+            </div>
+
+            {/* Interactive 3D Canvas Globe */}
+            <div className="flex flex-col justify-center items-center border border-slate-200/80 dark:border-white/10 rounded-2xl bg-slate-100/50 dark:bg-white/5 p-4 relative backdrop-blur-xl shadow-sm">
               <ParticleGlobe darkMode={darkMode} />
+              <span className="text-3xs tracking-wider text-slate-400 font-mono mt-1">
+                Colombo, Sri Lanka • UTC+5:30
+              </span>
             </div>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          {/* 4 Clean Metric & Focus Cards */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
-              { icon: <User className="h-5 w-5" />, title: "Creative Ideation", text: "Transforming design sketches and project blueprints into functional, responsive code using modular components." },
-              { icon: <Briefcase className="h-5 w-5" />, title: "Full-Stack Adaptability", text: "Comfortable navigating database queries, setting up Express REST APIs, or tuning React interfaces." },
-              { icon: <GraduationCap className="h-5 w-5" />, title: "Academic Rigor", text: "Acquired higher diploma merit credentials, constantly researching code styling systems and software patterns." },
+              {
+                num: "01",
+                tag: "SYSTEMS",
+                icon: <Code2 className="h-4 w-4" />,
+                title: "8 Shipped Projects",
+                subtitle: "Full-Stack, ML, Desktop & Mobile",
+                desc: "End-to-end architectures utilizing custom data structures, RESTful APIs, and relational persistence.",
+              },
+              {
+                num: "02",
+                tag: "ACADEMICS",
+                icon: <GraduationCap className="h-4 w-4" />,
+                title: "Cardiff Metropolitan",
+                subtitle: "BSc (Hons) in Progress",
+                desc: "Completed Higher Diploma with Merit distinction; coursework focused on DSA, OOP, and system design.",
+              },
+              {
+                num: "03",
+                tag: "APPLIED ML",
+                icon: <BrainCircuit className="h-4 w-4" />,
+                title: "Machine Learning",
+                subtitle: "XGBoost, scikit-learn & SHAP",
+                desc: "Sensor telemetry reconstruction, automated imputation pipelines, and topic-constrained LLM integrations.",
+              },
+              {
+                num: "04",
+                tag: "EXPERIENCE",
+                icon: <Briefcase className="h-4 w-4" />,
+                title: "Work Experience",
+                subtitle: "Innodata Inc. & IFG BPO",
+                desc: "Quality-controlled data annotation supporting large-scale AI model training and urban data analytics.",
+              },
             ].map((card, i) => (
               <motion.div
-                key={card.title}
+                key={card.tag}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.35, delay: i * 0.08 }}
+                className={`rounded-2xl border ${currentThemeClasses.card} p-5 backdrop-blur-md transition-all duration-200 group flex flex-col justify-between`}
+              >
+                <div>
+                  <div className="flex items-center justify-between text-slate-400 dark:text-slate-500 mb-3">
+                    <span className="font-mono text-3xs font-semibold tracking-wider">
+                      {card.num} // {card.tag}
+                    </span>
+                    <span className="text-slate-400 group-hover:text-brand-cyan transition">
+                      {card.icon}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">
+                    {card.title}
+                  </h3>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">
+                    {card.subtitle}
+                  </p>
+                  <p className="mt-3 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+                    {card.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── PROJECTS SHOWCASE (ALL 8 PROJECTS!) ── */}
+        <section id="projects" className="py-20 border-t border-slate-200 dark:border-white/10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+            <div>
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan" />
+                PROJECTS
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+                Featured Engineering Projects
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300 max-w-2xl">
+                Personal and academic engineering projects documented in the CV, spanning AI/ML prediction platforms, enterprise desktop tools, Java EE architectures, and MERN applications.
+              </p>
+            </div>
+
+            {/* Category Filter Chips */}
+            <div className="flex flex-wrap gap-2">
+              {(["All", "Personal", "Academic", "AI/ML"] as const).map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                    activeFilter === filter
+                      ? "bg-brand-cyan text-slate-950 shadow-md font-bold"
+                      : "border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-brand-cyan hover:text-brand-cyan"
+                  }`}
+                >
+                  {filter} ({filter === "All" ? 8 : filter === "Personal" ? 2 : filter === "Academic" ? 6 : 3})
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* 8 Projects Grid */}
+          <div className="grid gap-8 lg:grid-cols-2">
+            {filteredProjects.map((project, idx) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.08 }}
+                className={`group rounded-3xl border ${currentThemeClasses.card} overflow-hidden transition-all duration-300 flex flex-col justify-between`}
+              >
+                {/* Visual Preview */}
+                <div className="relative h-64 w-full overflow-hidden bg-slate-900 flex items-center justify-center border-b border-slate-200 dark:border-white/10">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+
+                  {/* Badges on preview */}
+                  <div className="absolute top-4 left-4 flex gap-2">
+                    <span className="rounded-lg bg-black/75 backdrop-blur-md px-3 py-1 text-3xs font-bold uppercase tracking-wider text-brand-cyan border border-brand-cyan/30">
+                      {project.category} Project
+                    </span>
+                    <span className="rounded-lg bg-black/75 backdrop-blur-md px-3 py-1 text-3xs font-bold uppercase tracking-wider text-slate-300 border border-white/10">
+                      {project.domain}
+                    </span>
+                  </div>
+
+                  <span className="absolute bottom-3 right-4 text-3xs font-mono font-semibold text-slate-300 bg-black/60 backdrop-blur-md px-2.5 py-1 rounded-md">
+                    {project.period}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="p-7 flex-grow flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display leading-snug">
+                      {project.title}
+                    </h3>
+
+                    {/* Stack Badges */}
+                    <div className="mt-4 flex flex-wrap gap-1.5">
+                      {project.stack.map((tech) => (
+                        <span
+                          key={tech}
+                          className="inline-flex items-center gap-1 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 px-2.5 py-1 text-3xs font-bold text-slate-700 dark:text-slate-300"
+                        >
+                          <TechIcon name={tech} size={11} />
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Exact CV Bullets */}
+                    <div className="mt-5 space-y-2 border-t border-slate-200/50 dark:border-white/5 pt-4">
+                      {project.bullets.map((bullet, bIdx) => (
+                        <div key={bIdx} className="flex items-start gap-2.5 text-xs text-slate-650 dark:text-slate-300 leading-relaxed">
+                          <CheckCircle2 className="h-3.5 w-3.5 text-brand-cyan shrink-0 mt-0.5" />
+                          <span>{bullet}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Actions */}
+                  <div className="mt-6 flex flex-wrap gap-3 pt-4 border-t border-slate-200/50 dark:border-white/5">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`inline-flex items-center gap-2 rounded-xl border ${currentThemeClasses.panel} px-4 py-2.5 text-xs font-semibold ${currentThemeClasses.text} hover:bg-slate-200/50 dark:hover:bg-white/10 transition`}
+                    >
+                      <Github className="h-4 w-4" /> Codebase
+                    </a>
+
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl bg-brand-cyan hover:bg-brand-cyan/90 px-4 py-2.5 text-xs font-bold text-slate-950 transition shadow-sm"
+                      >
+                        <ExternalLink className="h-4 w-4" /> Live Demo
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── PROFESSIONAL EXPERIENCE & EDUCATION SECTION ── */}
+        <section id="experience" className="py-20 border-t border-slate-200 dark:border-white/10">
+          <div className="max-w-3xl mb-12">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-violet" />
+              EXPERIENCE & EDUCATION
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+              Work Experience & Academic Journey
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              Directly aligned with Madhuka Virajith&apos;s curriculum vitae, reflecting AI data annotation projects and Cardiff Metropolitan University degrees.
+            </p>
+          </div>
+
+          <div className="grid gap-12 lg:grid-cols-2">
+            {/* Column 1: Professional Experience */}
+            <div>
+              <div className="flex items-center gap-2.5 mb-8">
+                <div className="rounded-xl bg-brand-cyan/15 p-2 text-brand-cyan">
+                  <Briefcase className="h-5 w-5" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
+                  Professional Experience
+                </h3>
+              </div>
+
+              <div className="relative border-l-2 border-slate-200 dark:border-white/10 ml-4 space-y-8 py-2">
+                {PROFESSIONAL_EXPERIENCES.map((exp, idx) => (
+                  <motion.div
+                    key={exp.company}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    className="relative pl-7"
+                  >
+                    <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-cyan border-4 border-slate-50 dark:border-[#030712] animate-pulse" />
+                    <div className={`rounded-3xl border ${currentThemeClasses.panel} p-6 backdrop-blur-xl`}>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <div>
+                          <h4 className="text-base font-bold text-slate-900 dark:text-white font-display">
+                            {exp.role}
+                          </h4>
+                          <p className="text-xs font-semibold text-brand-cyan mt-0.5">{exp.company}</p>
+                        </div>
+                        <span className="inline-flex rounded-full bg-brand-cyan/10 border border-brand-cyan/20 px-3 py-1 text-3xs font-semibold text-brand-cyan self-start">
+                          {exp.period}
+                        </span>
+                      </div>
+                      <p className="text-xs leading-relaxed text-slate-650 dark:text-slate-300">
+                        {exp.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+
+            {/* Column 2: Education */}
+            <div>
+              <div className="flex items-center gap-2.5 mb-8">
+                <div className="rounded-xl bg-brand-violet/15 p-2 text-brand-violet">
+                  <GraduationCap className="h-5 w-5" />
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">
+                  Education
+                </h3>
+              </div>
+
+              <div className="relative border-l-2 border-slate-200 dark:border-white/10 ml-4 space-y-8 py-2">
+                {EDUCATION_ITEMS.map((edu, idx) => (
+                  <motion.div
+                    key={edu.degree}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: idx * 0.1 }}
+                    className="relative pl-7"
+                  >
+                    <div className="absolute -left-[9px] top-1.5 w-4 h-4 rounded-full bg-brand-violet border-4 border-slate-50 dark:border-[#030712] animate-pulse" />
+                    <div className={`rounded-3xl border ${currentThemeClasses.panel} p-6 backdrop-blur-xl`}>
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                        <div>
+                          <h4 className="text-base font-bold text-slate-900 dark:text-white font-display">
+                            {edu.degree}
+                          </h4>
+                          <p className="text-xs font-semibold text-brand-violet mt-0.5">
+                            {edu.institution}
+                          </p>
+                          {edu.grade && (
+                            <span className="inline-block mt-1 font-bold text-xs text-brand-cyan">
+                              ★ {edu.grade}
+                            </span>
+                          )}
+                        </div>
+                        <span className="inline-flex rounded-full bg-brand-violet/10 border border-brand-violet/20 px-3 py-1 text-3xs font-semibold text-brand-violet self-start">
+                          {edu.period}
+                        </span>
+                      </div>
+                      <p className="text-xs leading-relaxed text-slate-650 dark:text-slate-300">
+                        {edu.details}
+                      </p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── TECHNICAL SKILLS SECTION ── */}
+        <section id="skills" className="py-20 border-t border-slate-200 dark:border-white/10">
+          <div className="max-w-3xl mb-10">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan" />
+              SKILLS & TOOLS
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+              Technical Competencies
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              Complete catalog of languages, machine learning packages, backend frameworks, and cloud utilities practiced across all 8 projects.
+            </p>
+          </div>
+
+          {/* Category Tabs */}
+          <div className="flex flex-wrap gap-2 mb-8 border-b border-slate-200 dark:border-white/10 pb-4">
+            {[
+              { id: "core", label: "Core Skills (CV Summary)" },
+              { id: "aiml", label: "AI & Machine Learning" },
+              { id: "frameworks", label: "Frameworks & Backend" },
+              { id: "cloud", label: "Databases, Cloud & DevOps" },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveSkillCategory(tab.id as keyof typeof SKILL_CATEGORIES)}
+                className={`px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+                  activeSkillCategory === tab.id
+                    ? "bg-gradient-to-r from-brand-cyan to-brand-violet text-white shadow-md"
+                    : "text-slate-600 dark:text-slate-400 hover:text-brand-cyan hover:bg-slate-100 dark:hover:bg-white/5"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Skills Grid */}
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {SKILL_CATEGORIES[activeSkillCategory].map((skill, index) => (
+              <motion.div
+                key={skill.name}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: index * 0.04 }}
+                className={`rounded-2xl border ${currentThemeClasses.card} p-5 backdrop-blur-xl`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <TechIcon name={skill.name} size={18} />
+                    <span className="font-bold text-slate-800 dark:text-slate-200 text-sm font-display">
+                      {skill.name}
+                    </span>
+                  </div>
+                  <span className="text-3xs font-mono font-bold text-brand-cyan bg-brand-cyan/10 px-2 py-0.5 rounded-md border border-brand-cyan/20">
+                    {skill.level}
+                  </span>
+                </div>
+                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mt-2">
+                  {skill.desc}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* ── CERTIFICATIONS SECTION (NEW!) ── */}
+        <section id="certifications" className="py-20 border-t border-slate-200 dark:border-white/10">
+          <div className="max-w-3xl mb-10">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-brand-pink" />
+              CREDENTIALS
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+              Industry Certifications
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              Verified certifications from Google and IBM demonstrating AI fluency and foundational Java programming mastery.
+            </p>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            {CERTIFICATIONS.map((cert, idx) => (
+              <motion.div
+                key={cert.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                className={`rounded-3xl border ${currentThemeClasses.card} p-7 backdrop-blur-xl transition duration-300`}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                className={`rounded-3xl border ${currentThemeClasses.card} p-7 backdrop-blur-xl relative flex flex-col justify-between`}
               >
-                <div className="mb-4 inline-flex rounded-2xl bg-gradient-to-br from-brand-cyan/20 to-brand-violet/20 p-3 text-brand-cyan">
-                  {card.icon}
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-cyan/15 px-3 py-1 text-2xs font-bold text-brand-cyan border border-brand-cyan/20">
+                      <Award className="h-3.5 w-3.5" /> {cert.issuer}
+                    </span>
+                    <span className="text-xs text-slate-400 font-mono">{cert.date}</span>
+                  </div>
+
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">
+                    {cert.name}
+                  </h3>
+                  <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+                    {cert.details}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">{card.title}</h3>
-                <p className="mt-3 text-sm leading-relaxed text-slate-650 dark:text-slate-300">{card.text}</p>
-              </motion.div>
-            ))}
-          </div>
-        </section>
 
-        {/* ── SKILLS & TOOLKIT SECTION ── */}
-        <section id="skills" className="py-24 border-t border-slate-200 dark:border-white/10">
-          <SectionTitle
-            eyebrow="My Stack"
-            title="Technical toolkit & mastery levels"
-            description="I specialize in full-stack architecture. Hover or click on the skill groups to explore my experience levels and proficiency ratios."
-          />
-
-          {/* Tab Selector buttons */}
-          <div className="flex flex-wrap gap-2.5 mb-10 border-b border-slate-200 dark:border-white/10 pb-4">
-            {(["frontend", "backend", "database", "tools"] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveSkillTab(tab)}
-                className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${activeSkillTab === tab
-                    ? "bg-gradient-to-r from-brand-cyan to-brand-violet text-white shadow-md"
-                    : "text-slate-550 dark:text-slate-400 hover:text-brand-cyan hover:bg-slate-100 dark:hover:bg-white/5"
-                  }`}
-              >
-                {tab} Group
-              </button>
-            ))}
-          </div>
-
-          {/* Animated Skills Grid displaying progress bars */}
-          <div className="grid gap-4.5 sm:grid-cols-2 lg:grid-cols-3">
-            {skills[activeSkillTab].map((skillName, index) => {
-              const score = SKILL_PROFICIENCY[skillName] || 80;
-              return (
-                <motion.div
-                  key={skillName}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.05 }}
-                  className={`rounded-2xl border ${currentThemeClasses.card} p-5 bg-slate-900/5 dark:bg-white/5`}
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2.5">
-                      <TechIcon name={skillName} size={18} />
-                      <span className="font-bold text-slate-800 dark:text-slate-200 font-display">{skillName}</span>
-                    </div>
-                    <span className="text-xs font-mono font-bold text-brand-cyan">{score}%</span>
+                <div className="mt-6 pt-4 border-t border-slate-200/50 dark:border-white/5 flex items-center justify-between">
+                  <div className="font-mono text-3xs text-slate-400">
+                    Credential ID: <span className="text-slate-700 dark:text-slate-200 font-semibold">{cert.credentialId}</span>
                   </div>
-
-                  {/* Progress track */}
-                  <div className="w-full bg-slate-200 dark:bg-white/10 h-2 rounded-full overflow-hidden">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${score}%` }}
-                      transition={{ duration: 1, ease: "easeOut" }}
-                      className="h-full bg-gradient-to-r from-brand-cyan to-brand-violet rounded-full"
-                    />
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* ── PROJECTS SHOWCASE ── */}
-        <section id="projects" className="py-24 border-t border-slate-200 dark:border-white/10">
-          <SectionTitle
-            eyebrow="Portfolio"
-            title="Curated academic & personal projects"
-            description="Explore selected systems utilizing dynamic user routing, API integration pipelines, and database relations."
-          />
-
-          {/* Category Filter Chips */}
-          <div className="flex flex-wrap gap-2.5 mb-10">
-            {["All", "Academic", "Personal"].map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${activeFilter === filter
-                    ? "bg-brand-cyan text-slate-950 shadow-md font-bold"
-                    : `border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:border-brand-cyan hover:text-brand-cyan`
-                  }`}
-              >
-                {filter} Projects
-              </button>
-            ))}
-          </div>
-
-          {/* Projects showcase Grid */}
-          <div className="grid gap-8 lg:grid-cols-2">
-            {filteredProjects.map((project, idx) => {
-              const hasMedia = project.media && project.media !== "";
-              return (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className={`group rounded-3xl border ${currentThemeClasses.card} overflow-hidden transition-all duration-300 flex flex-col justify-between`}
-                >
-                  {/* Project Media Visual container */}
-                  <div className="relative h-60 w-full overflow-hidden bg-slate-900/50 flex items-center justify-center border-b border-slate-200 dark:border-white/10">
-                    {hasMedia ? (
-                      <img
-                        src={project.media}
-                        alt={project.title}
-                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                      />
-                    ) : (
-                      <div className="text-center p-6">
-                        <Code2 className="h-12 w-12 text-brand-cyan/40 mx-auto mb-3 animate-float" />
-                        <span className="text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 font-mono">Code Repository</span>
-                        <p className="text-slate-700 dark:text-slate-300 font-bold mt-1">{project.title}</p>
-                      </div>
-                    )}
-                    {/* Dark gradient shadow */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 to-transparent pointer-events-none" />
-                    <span className="absolute top-4 left-4 rounded-lg bg-black/60 backdrop-blur-md px-3 py-1 text-2xs font-bold uppercase tracking-wider text-brand-cyan">
-                      {project.category}
-                    </span>
-                  </div>
-
-                  {/* Body Content */}
-                  <div className="p-7 flex-grow flex flex-col justify-between">
-                    <div>
-                      <h3 className="text-xl font-bold text-slate-900 dark:text-white font-display">{project.title}</h3>
-                      <p className="mt-3 text-sm leading-relaxed text-slate-650 dark:text-slate-350">{project.description}</p>
-
-                      {/* Stack used chips */}
-                      <div className="mt-5 flex flex-wrap gap-1.5">
-                        {project.stack.map((stackName) => (
-                          <span key={stackName} className="inline-flex items-center gap-1 rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 px-2.5 py-1 text-2xs font-bold text-slate-500 dark:text-slate-400">
-                            <TechIcon name={stackName} size={10} />
-                            {stackName}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Anchor Actions */}
-                    <div className="mt-6 flex flex-wrap gap-3.5 pt-4 border-t border-slate-200/50 dark:border-white/5">
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={`inline-flex items-center gap-2 rounded-xl border ${currentThemeClasses.panel} px-4 py-2.5 text-xs font-semibold ${currentThemeClasses.text} hover:bg-slate-200/50 dark:hover:bg-white/10 transition`}
-                      >
-                        <Github className="h-4 w-4" /> Codebase
-                      </a>
-                      {project.live !== "#" && (
-                        <a
-                          href={project.live}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-2 rounded-xl bg-brand-cyan hover:bg-brand-cyan/90 px-4 py-2.5 text-xs font-bold text-slate-950 transition"
-                        >
-                          <ExternalLink className="h-4 w-4" /> Live Site
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* ── TIMELINE (EDUCATION & JOURNEY) ── */}
-        <section id="timeline" className="py-24 border-t border-slate-200 dark:border-white/10">
-          <SectionTitle
-            eyebrow="My Journey"
-            title="Education & software development checkpoints"
-            description="Chronological view of my academic qualifications and development experience."
-          />
-
-          <div className="relative border-l-2 border-slate-200 dark:border-white/10 ml-4 md:ml-10 space-y-12 py-3">
-            {experiences.map((exp, idx) => (
-              <motion.div
-                key={exp.title}
-                initial={{ opacity: 0, x: -25 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="relative pl-8 md:pl-12"
-              >
-                {/* pulsing dot node indicator */}
-                <div className="absolute -left-[9px] top-1.5 w-4.5 h-4.5 rounded-full bg-brand-cyan border-4 border-slate-50 dark:border-[#030712] animate-pulse" />
-
-                <div className={`rounded-3xl border ${currentThemeClasses.panel} p-6 backdrop-blur-xl relative`}>
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-3.5 mb-4">
-                    <div>
-                      <h3 className="text-lg font-bold text-slate-900 dark:text-white font-display">{exp.title}</h3>
-                      <p className="text-sm font-semibold text-brand-cyan mt-0.5">{exp.org}</p>
-                    </div>
-                    <span className="inline-flex rounded-full bg-brand-cyan/10 border border-brand-cyan/20 px-3.5 py-1 text-xs font-semibold text-brand-cyan md:self-start">
-                      {exp.period}
-                    </span>
-                  </div>
-                  <p className="text-sm leading-relaxed text-slate-650 dark:text-slate-350">{exp.desc}</p>
+                  <span className="text-3xs font-semibold uppercase text-emerald-400 flex items-center gap-1">
+                    <Check className="h-3 w-3" /> Verified
+                  </span>
                 </div>
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* ── INTERACTIVE CLI TERMINAL WIDGET ── */}
-        <section id="terminal" className="py-24 border-t border-slate-200 dark:border-white/10">
-          <SectionTitle
-            eyebrow="Console"
-            title="Interactive developer command line"
-            description=" recruiters and developers: Query details from my CV via this CLI terminal widget. Try typing 'help'."
-          />
+        {/* ── INTERACTIVE DEVELOPER CLI TERMINAL WIDGET ── */}
+        <section id="terminal" className="py-20 border-t border-slate-200 dark:border-white/10">
+          <div className="max-w-3xl mb-10">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              DEVELOPER CLI
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+              Interactive Terminal Console
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+              Recruiters and engineers can query Madhuka&apos;s CV directly through this command-line interface. Type <code className="text-brand-cyan font-mono bg-brand-cyan/10 px-1.5 py-0.5 rounded">help</code> to see commands.
+            </p>
+          </div>
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="w-full max-w-4xl mx-auto rounded-2xl border border-slate-700 bg-slate-950 overflow-hidden shadow-2xl font-mono text-xs sm:text-sm text-slate-250"
+            className="w-full max-w-4xl mx-auto rounded-2xl border border-slate-700 bg-slate-950 overflow-hidden shadow-2xl font-mono text-xs sm:text-sm text-slate-200"
           >
-            {/* Terminal Window Header controls */}
+            {/* Terminal Header */}
             <div className="bg-slate-900 px-4 py-3 flex items-center justify-between border-b border-slate-800">
               <div className="flex items-center gap-1.5">
                 <span className="w-3.5 h-3.5 rounded-full bg-rose-500 inline-block" />
                 <span className="w-3.5 h-3.5 rounded-full bg-amber-500 inline-block" />
                 <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 inline-block" />
               </div>
-              <div className="text-slate-500 text-2xs uppercase tracking-wider font-semibold flex items-center gap-1">
-                <Terminal className="h-3.5 w-3.5" /> guest@madhuka-portfolio:~
+              <div className="text-slate-400 text-3xs uppercase tracking-wider font-semibold flex items-center gap-1">
+                <Terminal className="h-3.5 w-3.5 text-brand-cyan" /> guest@madhukavirajith:~ (CV Terminal)
               </div>
               <div className="w-12" />
             </div>
 
-            {/* Terminal console text pane */}
+            {/* Terminal Log */}
             <div className="p-5 h-80 overflow-y-auto space-y-2 select-text bg-slate-950 text-slate-300">
               {terminalHistory.map((line, i) => (
                 <div key={i} className="whitespace-pre-wrap leading-relaxed">
-                  {line.startsWith("guest@madhuka-portfolio:~$") ? (
+                  {line.startsWith("guest@madhukavirajith:~$") ? (
                     <span>
-                      <span className="text-emerald-400 font-bold hidden sm:inline">guest@madhuka-portfolio</span>
+                      <span className="text-emerald-400 font-bold hidden sm:inline">guest@madhukavirajith</span>
                       <span className="text-slate-400 font-bold hidden sm:inline">:</span>
-                      <span className="text-brand-cyan font-bold">~$</span>{" "}
-                      {line.substring(27)}
+                      <span className="text-brand-cyan font-bold">~$</span> {line.substring(25)}
                     </span>
                   ) : line.startsWith("OS:") ? (
                     <span className="text-rose-400 font-bold">{line}</span>
                   ) : line.includes("Available Commands:") || line.includes("☕ sudo:") ? (
                     <span className="text-brand-pink font-bold">{line}</span>
+                  ) : line.includes("MADHUKA VIRAJITH") || line.includes("ALL 8 FEATURED PROJECTS:") ? (
+                    <span className="text-brand-cyan font-bold">{line}</span>
                   ) : (
                     <span>{line}</span>
                   )}
@@ -1197,17 +1615,17 @@ export default function MadhukaPortfolio() {
               <div ref={terminalEndRef} />
             </div>
 
-            {/* Terminal Command Input form */}
+            {/* Input Form */}
             <form onSubmit={handleTerminalSubmit} className="bg-slate-900 border-t border-slate-800 p-4 flex items-center gap-2">
-              <span className="text-emerald-400 font-bold shrink-0 hidden sm:inline">guest@madhuka-portfolio</span>
+              <span className="text-emerald-400 font-bold shrink-0 hidden sm:inline">guest@madhukavirajith</span>
               <span className="text-slate-400 font-bold shrink-0 hidden sm:inline">:</span>
               <span className="text-brand-cyan font-bold shrink-0">~$</span>
               <input
                 type="text"
                 value={terminalInput}
                 onChange={(e) => setTerminalInput(e.target.value)}
-                placeholder="type 'help' and press Enter..."
-                className="bg-transparent border-none text-slate-100 placeholder-slate-650 focus:outline-none focus:ring-0 flex-grow font-mono"
+                placeholder="type 'help', 'projects', 'skills', 'experience', 'education'..."
+                className="bg-transparent border-none text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-0 flex-grow font-mono text-xs sm:text-sm"
                 autoComplete="off"
                 spellCheck="false"
               />
@@ -1216,45 +1634,97 @@ export default function MadhukaPortfolio() {
         </section>
 
         {/* ── CONTACT FORM SECTION ── */}
-        <section id="contact" className="py-24 border-t border-slate-200 dark:border-white/10">
+        <section id="contact" className="py-20 border-t border-slate-200 dark:border-white/10">
           <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
-
-            {/* Context Left */}
+            {/* Left Info Column */}
             <div>
-              <SectionTitle
-                eyebrow="Get In Touch"
-                title="Let's build something premium together"
-                description="I am always interested in discussing internships, graduation placements, open-source architectures, or full-stack software development projects. Fill in the form or contact me directly."
-              />
+              <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-white/10 bg-slate-100/80 dark:bg-white/5 px-3.5 py-1 text-xs font-mono font-medium text-slate-600 dark:text-slate-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-cyan" />
+                GET IN TOUCH
+              </div>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-4xl font-display">
+                Let&apos;s Connect
+              </h2>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+                Madhuka is available for Software Engineering internships, full-stack development roles, and research projects. Reach out via email, phone, or send a direct message below.
+              </p>
 
-              <div className="space-y-4">
+              <div className="mt-8 space-y-4">
                 {[
-                  { label: "Mail Address", value: "virajith404@gmail.com", href: "mailto:virajith404@gmail.com", icon: <Mail className="h-5 w-5" /> },
-                  { label: "LinkedIn", value: "Madhuka Virajith", href: "https://www.linkedin.com/in/madhuka-virajith-599ba42a4/", icon: <Linkedin className="h-5 w-5" /> },
-                  { label: "GitHub Account", value: "github.com/madhukavirajith", href: "https://github.com/madhukavirajith", icon: <Github className="h-5 w-5" /> },
+                  {
+                    label: "Email Address",
+                    value: "virajith404@gmail.com",
+                    href: "mailto:virajith404@gmail.com",
+                    icon: <Mail className="h-5 w-5" />,
+                    canCopy: true,
+                  },
+                  {
+                    label: "Direct Phone",
+                    value: "+94 70 241 2807",
+                    href: "tel:+94702412807",
+                    icon: <Phone className="h-5 w-5" />,
+                  },
+                  {
+                    label: "Location",
+                    value: "Colombo, Sri Lanka",
+                    href: "#",
+                    icon: <MapPin className="h-5 w-5" />,
+                  },
+                  {
+                    label: "LinkedIn Profile",
+                    value: "linkedin.com/in/madhukavirajith",
+                    href: "https://linkedin.com/in/madhukavirajith",
+                    icon: <Linkedin className="h-5 w-5" />,
+                  },
+                  {
+                    label: "GitHub Repositories",
+                    value: "github.com/madhukavirajith",
+                    href: "https://github.com/madhukavirajith",
+                    icon: <Github className="h-5 w-5" />,
+                  },
                 ].map((item) => (
-                  <a
+                  <div
                     key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className={`flex items-center gap-4 rounded-2xl border ${currentThemeClasses.panel} p-5 transition hover:scale-[1.02] hover:bg-slate-200/50 dark:hover:bg-white/10`}
+                    className={`flex items-center justify-between rounded-2xl border ${currentThemeClasses.panel} p-4.5 transition hover:scale-[1.01]`}
                   >
-                    <div className="rounded-xl bg-brand-cyan/15 p-3.5 text-brand-cyan shrink-0">
-                      {item.icon}
-                    </div>
-                    <div>
-                      <p className="text-2xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-400">{item.label}</p>
-                      <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-1">{item.value}</p>
-                    </div>
-                  </a>
+                    <a
+                      href={item.href}
+                      target={item.href.startsWith("http") ? "_blank" : undefined}
+                      rel="noreferrer"
+                      className="flex items-center gap-4 flex-grow"
+                    >
+                      <div className="rounded-xl bg-brand-cyan/15 p-3 text-brand-cyan shrink-0">
+                        {item.icon}
+                      </div>
+                      <div>
+                        <p className="text-3xs font-semibold uppercase tracking-wider text-slate-400">
+                          {item.label}
+                        </p>
+                        <p className="text-sm font-bold text-slate-800 dark:text-slate-100 mt-0.5">
+                          {item.value}
+                        </p>
+                      </div>
+                    </a>
+
+                    {item.canCopy && (
+                      <button
+                        onClick={handleCopyEmail}
+                        className="p-2 text-slate-400 hover:text-brand-cyan transition cursor-pointer"
+                        title="Copy email to clipboard"
+                      >
+                        {copiedEmail ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
+                      </button>
+                    )}
+                  </div>
                 ))}
               </div>
             </div>
 
-            {/* Form Right */}
+            {/* Right Form Column */}
             <div className={`rounded-[32px] border ${currentThemeClasses.panel} p-8 backdrop-blur-xl bg-slate-900/10 dark:bg-white/5`}>
-              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 font-display">Send a Direct Message</h3>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 font-display">
+                Send a Direct Message
+              </h3>
 
               {formStatus === "success" ? (
                 <motion.div
@@ -1263,16 +1733,20 @@ export default function MadhukaPortfolio() {
                   className="flex flex-col items-center justify-center py-12 text-center"
                 >
                   <CheckCircle2 className="h-16 w-16 text-emerald-400 mb-4 animate-bounce" />
-                  <h4 className="text-lg font-bold text-slate-900 dark:text-white font-display">Message Dispatched!</h4>
+                  <h4 className="text-lg font-bold text-slate-900 dark:text-white font-display">
+                    Message Dispatched Successfully!
+                  </h4>
                   <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 max-w-xs">
-                    Thanks for reaching out! Madhuka will get back to your email address shortly.
+                    Thank you for reaching out! Madhuka will respond directly to your email address as soon as possible.
                   </p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleContactSubmit} className="space-y-5">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div>
-                      <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Your Name</label>
+                      <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                        Your Name
+                      </label>
                       <input
                         type="text"
                         id="name"
@@ -1284,7 +1758,9 @@ export default function MadhukaPortfolio() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Email Address</label>
+                      <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                        Email Address
+                      </label>
                       <input
                         type="email"
                         id="email"
@@ -1298,7 +1774,9 @@ export default function MadhukaPortfolio() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Your Message</label>
+                    <label htmlFor="message" className="block text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">
+                      Your Message
+                    </label>
                     <textarea
                       id="message"
                       rows={4}
@@ -1306,68 +1784,78 @@ export default function MadhukaPortfolio() {
                       value={formMessage}
                       onChange={(e) => setFormMessage(e.target.value)}
                       className={`w-full rounded-xl border px-4 py-3.5 text-sm focus:outline-none focus:ring-1 focus:ring-brand-cyan/50 ${currentThemeClasses.formInput}`}
-                      placeholder="Hi Madhuka, I'd like to discuss internship opportunities..."
+                      placeholder="Hi Madhuka, I reviewed your CV and would like to discuss a software engineering opportunity..."
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={formStatus === "sending"}
-                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brand-cyan to-brand-violet py-3.5 text-sm font-bold text-white shadow-lg transition hover:opacity-90 disabled:opacity-50 cursor-pointer"
+                    className="w-full inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-brand-cyan via-brand-violet to-brand-pink py-3.5 text-sm font-bold text-white shadow-lg transition hover:opacity-95 disabled:opacity-50 cursor-pointer"
                   >
-                    {formStatus === "sending" ? "Dispatching Message..." : "Send Message"} <Send className="h-4 w-4" />
+                    {formStatus === "sending" ? "Dispatching Message..." : "Send Message"}{" "}
+                    <Send className="h-4 w-4" />
                   </button>
                 </form>
               )}
             </div>
-
           </div>
         </section>
 
       </main>
 
       {/* ── FOOTER ── */}
-      <footer className="border-t border-slate-200 dark:border-white/10 px-6 py-10 bg-slate-100 dark:bg-black/20">
+      <footer className="border-t border-slate-200 dark:border-white/10 px-6 py-10 bg-slate-100/60 dark:bg-black/30">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
-            © {new Date().getFullYear()} Madhuka Virajith. Built with Next.js, Tailwind CSS, and Framer Motion.
-          </p>
-          <a href="#home" className="text-sm font-bold text-brand-cyan hover:underline">
-            madhukavirajith.com
-          </a>
+          <div>
+            <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+              Madhuka Virajith • Software Engineering Undergraduate
+            </p>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Cardiff Metropolitan University | Colombo, Sri Lanka | virajith404@gmail.com | +94 70 241 2807
+            </p>
+          </div>
+          <div className="flex items-center gap-4 text-xs">
+            <a href="https://github.com/madhukavirajith" target="_blank" rel="noreferrer" className="text-slate-600 dark:text-slate-300 hover:text-brand-cyan">
+              GitHub
+            </a>
+            <a href="https://linkedin.com/in/madhukavirajith" target="_blank" rel="noreferrer" className="text-slate-600 dark:text-slate-300 hover:text-brand-cyan">
+              LinkedIn
+            </a>
+            <a href="#home" className="font-bold text-brand-cyan hover:underline">
+              Back to Top ↑
+            </a>
+          </div>
         </div>
       </footer>
 
       {/* ── RESUME BOT (FLOATING CHAT ASSISTANT) ── */}
       <div className="fixed bottom-6 right-6 z-40">
-        {/* Floating Bubble Icon */}
         <button
           onClick={() => setChatOpen((prev) => !prev)}
           className="rounded-full bg-gradient-to-r from-brand-cyan via-brand-violet to-brand-pink p-4 text-white shadow-2xl transition hover:scale-[1.08] relative group cursor-pointer flex items-center justify-center"
           aria-label="Toggle chat assistant"
         >
           {chatOpen ? <X className="h-6 w-6" /> : <MessageSquare className="h-6 w-6" />}
-          <span className="absolute right-full mr-3 bg-black/80 backdrop-blur-md text-white text-2xs font-bold py-1 px-2.5 rounded-lg opacity-0 pointer-events-none group-hover:opacity-100 transition whitespace-nowrap">
-            Ask Resume Bot!
+          <span className="absolute right-full mr-3 bg-black/85 backdrop-blur-md text-white text-2xs font-bold py-1.5 px-3 rounded-xl opacity-0 pointer-events-none group-hover:opacity-100 transition whitespace-nowrap shadow-lg">
+            Chat with CV Bot!
           </span>
         </button>
 
-        {/* Chat window panel */}
         <AnimatePresence>
           {chatOpen && (
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 15 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 15 }}
-              className="absolute bottom-16 right-0 w-[calc(100vw-32px)] sm:w-88 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden font-sans text-xs"
+              className="absolute bottom-16 right-0 w-[calc(100vw-32px)] sm:w-92 rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-2xl overflow-hidden font-sans text-xs"
             >
-              {/* Header */}
               <div className="bg-slate-900 text-white p-4 flex items-center justify-between">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
                   <div>
-                    <h4 className="font-bold font-display">Resume AI Assistant</h4>
-                    <p className="text-3xs text-slate-400 tracking-wide">Online • Portfolio Bot</p>
+                    <h4 className="font-bold font-display">Madhuka CV Assistant</h4>
+                    <p className="text-3xs text-slate-400">Trained on attached CV details</p>
                   </div>
                 </div>
                 <button
@@ -1378,28 +1866,27 @@ export default function MadhukaPortfolio() {
                 </button>
               </div>
 
-              {/* Message History pane */}
-              <div className="p-4 h-60 overflow-y-auto space-y-3 bg-slate-50 dark:bg-slate-950">
+              <div className="p-4 h-64 overflow-y-auto space-y-3 bg-slate-50 dark:bg-slate-950">
                 {chatMessages.map((msg, i) => (
                   <div
                     key={i}
                     className={`flex ${msg.sender === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed font-medium ${msg.sender === "user"
+                      className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 leading-relaxed font-medium ${
+                        msg.sender === "user"
                           ? "bg-brand-cyan text-slate-950 rounded-tr-none"
-                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-slate-850 dark:text-slate-200 rounded-tl-none shadow-sm"
-                        }`}
+                          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-slate-800 dark:text-slate-200 rounded-tl-none shadow-sm"
+                      }`}
                     >
                       {msg.text}
                     </div>
                   </div>
                 ))}
 
-                {/* Typing indicator */}
                 {chatTyping && (
                   <div className="flex justify-start">
-                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl rounded-tl-none px-3.5 py-2.5 text-slate-450 dark:text-slate-400 shadow-sm flex items-center gap-1.5 font-bold">
+                    <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-2xl rounded-tl-none px-3.5 py-2.5 text-slate-400 shadow-sm flex items-center gap-1.5 font-bold">
                       <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
                       <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
                       <span className="w-1.5 h-1.5 bg-brand-cyan rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
@@ -1410,31 +1897,39 @@ export default function MadhukaPortfolio() {
                 <div ref={chatbotMessagesEndRef} />
               </div>
 
-              {/* Interactive buttons input pane */}
-              <div className="p-3.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-2">
-                <p className="text-3xs uppercase tracking-wider text-slate-400 dark:text-slate-500 font-bold mb-1.5">Suggested Questions:</p>
+              {/* Suggested Questions */}
+              <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 space-y-1.5">
+                <p className="text-3xs uppercase tracking-wider text-slate-400 font-bold mb-1">
+                  Ask about Madhuka:
+                </p>
                 <div className="flex flex-col gap-1.5">
                   <button
-                    onClick={() => triggerChatbotReply("Are you seeking internships?", "internship")}
-                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                    onClick={() => triggerChatbotReply("Are you seeking an internship?", "internship")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-300 transition font-medium cursor-pointer"
                   >
-                    💼 Are you seeking internships?
+                    💼 Are you seeking an internship?
                   </button>
                   <button
-                    onClick={() => triggerChatbotReply("What is your core tech stack?", "stack")}
-                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                    onClick={() => triggerChatbotReply("Tell me about your 8 projects", "projects")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-300 transition font-medium cursor-pointer"
                   >
-                    🛠️ What is your core tech stack?
+                    🚀 Tell me about your 8 projects
                   </button>
                   <button
-                    onClick={() => triggerChatbotReply("Tell me about Forgotten Recipes", "recipes")}
-                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                    onClick={() => triggerChatbotReply("What AI/ML models have you built?", "aiml")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-300 transition font-medium cursor-pointer"
                   >
-                    🥣 Tell me about Forgotten Recipes
+                    🤖 What AI/ML models have you built?
+                  </button>
+                  <button
+                    onClick={() => triggerChatbotReply("What are your education & certifications?", "education")}
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-300 transition font-medium cursor-pointer"
+                  >
+                    🎓 Education & Certifications
                   </button>
                   <button
                     onClick={() => triggerChatbotReply("How can I contact you?", "contact")}
-                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-350 transition font-medium cursor-pointer"
+                    className="w-full text-left rounded-lg bg-slate-100 dark:bg-white/5 border border-slate-200/50 dark:border-white/5 p-2 hover:bg-brand-cyan/10 hover:border-brand-cyan dark:hover:bg-brand-cyan/10 dark:hover:border-brand-cyan text-slate-700 dark:text-slate-300 transition font-medium cursor-pointer"
                   >
                     ✉️ How can I contact you?
                   </button>
@@ -1444,7 +1939,6 @@ export default function MadhukaPortfolio() {
           )}
         </AnimatePresence>
       </div>
-
     </div>
   );
 }

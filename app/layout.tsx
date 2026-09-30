@@ -15,9 +15,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Madhuka Virajith | Premium Software Engineer & Full-Stack Developer",
-  description: "Portfolio of Madhuka Virajith, a software engineering undergraduate specializing in elegant MERN stack platforms, Java Spring Boot, and C#/.NET solutions with rich visual user experiences.",
-  keywords: ["Madhuka Virajith", "Software Engineer", "Full-Stack Developer", "Next.js Developer", "React Developer", "MERN Stack", "Sri Lanka Developer"],
+  title: "Madhuka Virajith | Software Engineering Undergraduate | Full-Stack & AI/ML Development",
+  description: "Portfolio of Madhuka Virajith, Software Engineering undergraduate at Cardiff Metropolitan University with hands-on experience building eight full-stack, web, AI/ML, desktop, and mobile applications. Seeking a Software Engineering internship.",
+  keywords: [
+    "Madhuka Virajith",
+    "Software Engineering Undergraduate",
+    "Full-Stack Developer",
+    "AI/ML Development",
+    "Java Spring Boot",
+    "Python",
+    "React",
+    "Next.js",
+    "C# .NET",
+    "Cardiff Metropolitan University",
+    "Colombo Sri Lanka"
+  ],
 };
 
 export default function RootLayout({
